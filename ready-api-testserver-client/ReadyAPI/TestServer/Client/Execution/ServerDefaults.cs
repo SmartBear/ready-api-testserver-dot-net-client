@@ -8,7 +8,7 @@
         public static readonly string SERVICE_BASE_PATH = "/readyapi";
 
         public static readonly int DEFAULT_PORT = 8443;
-        public static readonly Scheme DEFAULT_SCHEME = new Scheme(Scheme.HTTPS);
+        public static readonly Scheme DEFAULT_SCHEME = Scheme.HTTPS;
 
         public static readonly string VERSION_PREFIX = "/v1";
         private ServerDefaults(){}

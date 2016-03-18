@@ -2,12 +2,12 @@
 {
     public class Scheme
     {
-        public static readonly string HTTP = "http";
-        public static readonly string HTTPS = "https";
+        private static readonly string HTTP_SCHEME = "http";
+        private static readonly string HTTPS_SCHEME = "https";
 
         private string value;
 
-        public Scheme(string value)
+        private Scheme(string value)
         {
             this.value = value;
         }
@@ -15,6 +15,18 @@
         public string getValue()
         {
             return value;
+        }
+
+        public static Scheme HTTP
+        {
+            get { return new Scheme(HTTP_SCHEME); }
+            private set {}
+        }
+
+        public static Scheme HTTPS
+        {
+            get { return new Scheme(HTTPS_SCHEME); }
+            private set {}
         }
     }
 }
