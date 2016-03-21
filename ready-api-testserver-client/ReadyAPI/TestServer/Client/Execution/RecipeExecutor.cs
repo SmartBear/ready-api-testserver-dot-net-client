@@ -3,6 +3,7 @@ using IO.Swagger.Client;
 using IO.Swagger.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ReadyAPI.TestServer.Client.Execution
 {
@@ -11,24 +12,31 @@ namespace ReadyAPI.TestServer.Client.Execution
      */
     public class RecipeExecutor
     {
-        //private static readonly int NUMBER_OF_RETRIES_IN_CASE_OF_ERRORS = 3;
-        private readonly ReadyapiApi testServerApi;
-        private string user;
-        private string password;
-        private readonly IList<ExecutionListener> executionListeners = new SynchronizedCollection<ExecutionListener>();
+        readonly ReadyapiApi testServerApi;
+        string user;
+        string password;
+        readonly IList<ExecutionListener> executionListeners = new SynchronizedCollection<ExecutionListener>();
 
         public RecipeExecutor(Scheme scheme, string host, int port) : this(scheme, host, port, ServerDefaults.VERSION_PREFIX)
-        {}
+        { }
 
         public RecipeExecutor(string host, int port) : this(ServerDefaults.DEFAULT_SCHEME, host, port)
-        {}
+        { }
 
         public RecipeExecutor(string host) : this(host, ServerDefaults.DEFAULT_PORT)
-        {}
+        { }
 
         RecipeExecutor(Scheme scheme, string host, int port, string basePath)
         {
-            testServerApi = new ReadyapiApi(string.Format("{0}://{1}:{2}{3}", scheme.getValue(), host, port, basePath));
+            testServerApi = new ReadyapiApi(string.Format("{0}://{1}:{2}{3}", scheme.Value, host, port, basePath));
+        }
+
+        public ReadyapiApi TestServerApi
+        {
+            get
+            {
+                return testServerApi;
+            }
         }
 
         public void AddExecutionListener(ExecutionListener listener)
@@ -50,7 +58,7 @@ namespace ReadyAPI.TestServer.Client.Execution
                 {
                     executionListener.RequestSent(execution.CurrentReport);
                 }
-                //new ExecutionStatusChecker(execution).start(); TODO uncomment this
+                new ExecutionStatusChecker(execution, 1000).Start(this);
             }
             return execution;
         }
@@ -87,7 +95,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
         }
 
-        public void SetCredentials (string user, string password)
+        public void SetCredentials(string user, string password)
         {
             this.user = user;
             this.password = password;
@@ -124,54 +132,56 @@ namespace ReadyAPI.TestServer.Client.Execution
                 executionListener.ExecutionFinished(executionStatus);
             }
         }
-        //TODO need to improve this
-        /*
+
         private class ExecutionStatusChecker
         {
-            private readonly Timer timer;
+            static readonly int NUMBER_OF_RETRIES_IN_CASE_OF_ERRORS = 3;
+            Timer timer;
+            readonly Execution execution;
+            readonly int timeInterval;
+            int errorCount = 0;
 
-            private readonly Execution execution;
-
-            private int errorCount = 0;
-
-            public ExecutionStatusChecker(Execution execution)
+            public ExecutionStatusChecker(Execution execution, int timeInterval)
             {
                 this.execution = execution;
-                timer = new Timer();
+                this.timeInterval = timeInterval;
             }
 
-            public void start()
+            public void Start(object state)
             {
-                timer.schedule(new CheckingExpireDateTask(), 0, 1000);
+                timer = new Timer(this.TimerProc, state, 0, timeInterval);
             }
 
-            class CheckingExpireDateTask : TimerTask
+            private void TimerProc(object state)
             {
-                public void run()
+                if (state == null)
                 {
-                    try
+                    return;
+                }
+
+                RecipeExecutor executor = (RecipeExecutor)state;
+                try
+                {
+                    ProjectResultReport executionStatus = executor.TestServerApi.GetExecutionStatus(execution.Id);
+                    execution.AddResultReport(executionStatus);
+                    if (executionStatus.Status != "RUNNING")//TODO check available statuses 
                     {
-                        ProjectResultReport executionStatus = testServerApi.getExecutionStatus(execution.Id, authentication);
-                        execution.AddResultReport(executionStatus);
-                        if (!ProjectResultReport.StatusEnum.RUNNING.equals(executionStatus.getStatus()))
-                        {
-                            NotifyExecutionFinished(executionStatus);
-                            timer.cancel();
-                        }
-                        errorCount = 0;
+                        executor.NotifyExecutionFinished(executionStatus);
+                        timer.Dispose();
                     }
-                    catch (Exception e)
+                    errorCount = 0;
+                }
+                catch (Exception e)
+                {
+                    if (errorCount > NUMBER_OF_RETRIES_IN_CASE_OF_ERRORS)
                     {
-                        if (errorCount > NUMBER_OF_RETRIES_IN_CASE_OF_ERRORS)
-                        {
-                            timer.cancel();
-                        }
-                        Console.Error.WriteLine(e.Message);
-                        Console.Error.WriteLine(e.StackTrace.ToString());
-                        errorCount++;
+                        timer.Dispose();
                     }
+                    Console.Error.WriteLine(e.Message);
+                    Console.Error.WriteLine(e.StackTrace.ToString());
+                    errorCount++;
                 }
             }
-        }*/
+        }
     }
 }

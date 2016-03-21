@@ -26,15 +26,19 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
         }
 
+        private ProjectResultReport GetProjectResultReport()
+        {
+            ProjectResultReport projectResultReport;
+            executionStatusReports.TryPeek(out projectResultReport);
+            return projectResultReport;
+        }
+
         //public ProjectResultReport.StatusEnum getCurrentStatus() TODO: doublecheck this
         public string CurrentStatus
         {
             get
             {
-                ProjectResultReport projectResultReport;
-                executionStatusReports.TryDequeue(out projectResultReport);
-                return projectResultReport.Status;
-
+                return GetProjectResultReport().Status;
             }
         }
 
@@ -42,9 +46,7 @@ namespace ReadyAPI.TestServer.Client.Execution
         {
             get
             {
-                ProjectResultReport projectResultReport;
-                executionStatusReports.TryDequeue(out projectResultReport);
-                return projectResultReport;
+                return GetProjectResultReport();
             }
         }
 
@@ -60,12 +62,12 @@ namespace ReadyAPI.TestServer.Client.Execution
                 List<string> result = new List<string>();
 
                 ProjectResultReport projectResultReport;
-                executionStatusReports.TryDequeue(out projectResultReport);
+                executionStatusReports.TryPeek(out projectResultReport);
 
                 if (projectResultReport != null)
                 {
                     ProjectResultReport executionStatusReport;
-                    executionStatusReports.TryDequeue(out executionStatusReport);
+                    executionStatusReports.TryPeek(out executionStatusReport);
 
                     foreach (TestSuiteResultReport testSuiteReport in executionStatusReport.TestSuiteResultReports)
                     {
@@ -74,7 +76,6 @@ namespace ReadyAPI.TestServer.Client.Execution
                             foreach (TestStepResultReport testStepResultReport in testCaseResultReport.TestStepResultReports)
                             {
                                 if (testStepResultReport.AssertionStatus == "FAILED")
-                                //if (testStepResultReport.AssertionStatus == TestStepResultReport.AssertionStatusEnum.FAILED) TODO: doublecheck this
                                 {
                                     result.AddRange(testStepResultReport.Messages);
                                 }
