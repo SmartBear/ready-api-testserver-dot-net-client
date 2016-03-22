@@ -4,11 +4,11 @@ using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client
 {
-    public class TestRecipeBuilder<T> where T : TestStep
+    public class TestRecipeBuilder
     {
-        private List<TestStepBuilder<T>> testStepBuilders = new List<TestStepBuilder<T>>();
+        private List<TestStepBuilder> testStepBuilders = new List<TestStepBuilder>();
 
-        public TestRecipeBuilder<T> AddStep(TestStepBuilder<T> testStepBuilder)
+        public TestRecipeBuilder AddStep(TestStepBuilder testStepBuilder)
         {
             this.testStepBuilders.Add(testStepBuilder);
             return this;
@@ -25,16 +25,16 @@ namespace ReadyAPI.TestServer.Client
         private void AddTestSteps(TestCase testCase)
         {
             List<TestStep> testSteps = new List<TestStep>();
-            foreach (TestStepBuilder<T> testStepBuilder in testStepBuilders)
+            foreach (TestStepBuilder testStepBuilder in testStepBuilders)
             {
                 testSteps.Add(testStepBuilder.Build());
             }
             testCase.TestSteps = testSteps;
         }
 
-        public static TestRecipeBuilder<T> NewTestRecipe()
+        public static TestRecipeBuilder NewTestRecipe()
         {
-            return new TestRecipeBuilder<T>();
+            return new TestRecipeBuilder();
         }
 
     }

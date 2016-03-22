@@ -6,7 +6,7 @@ using ReadyAPI.TestServer.Client.Auth;
 namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 {
     public class BaseRestRequest<TRestRequestBuilderType> :
-        RestRequestBuilder<TRestRequestBuilderType>, TestStepBuilder<RestTestRequestStep>
+        RestRequestBuilder<TRestRequestBuilderType>, TestStepBuilder
         where 
         TRestRequestBuilderType : class, RestRequestBuilder<TRestRequestBuilderType>
     {
@@ -23,7 +23,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
             testStep.Method = method.ToString();
         }
 
-        RestTestRequestStep TestStepBuilder<RestTestRequestStep>.Build()
+        TestStep TestStepBuilder.Build()
         {
             Validator.ValidateNotEmpty(testStep.URI, "No URI set, it's a mandatory parameter for REST Request");
             Validator.ValidateNotEmpty(testStep.Method, "No HTTP method set, it's a mandatory parameter for REST Request");

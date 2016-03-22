@@ -5,7 +5,7 @@ using ReadyAPI.TestServer.Client.Auth;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 {
-    public interface RestRequestBuilder<TRestRequestBuilderType> : TestStepBuilder<RestTestRequestStep>
+    public interface RestRequestBuilder<TRestRequestBuilderType> : TestStepBuilder
         where TRestRequestBuilderType : class, RestRequestBuilder<TRestRequestBuilderType>
     {
         TRestRequestBuilderType Named(string name);

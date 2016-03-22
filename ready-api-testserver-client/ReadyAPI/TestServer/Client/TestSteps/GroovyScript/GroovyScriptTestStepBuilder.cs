@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.TestSteps.GroovyScript
 {
-    public class GroovyScriptTestStepBuilder : TestStepBuilder<GroovyScriptTestStep>
+    public class GroovyScriptTestStepBuilder : TestStepBuilder
     {
         private readonly string scriptText;
         private string name;
@@ -18,7 +18,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.GroovyScript
             return this;
         }
 
-        public GroovyScriptTestStep Build()//TODO: not sure might be I will need override moving forward
+        public TestStep Build()
         {
             GroovyScriptTestStep scriptTestStep = new GroovyScriptTestStep();
             scriptTestStep.Type = TestStepTypes.GROOVY_SCRIPT;

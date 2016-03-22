@@ -5,7 +5,7 @@ using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
 {
-    public class JdbcRequestTestStepBuilder : TestStepBuilder<JdbcRequestTestStepStruct>
+    public class JdbcRequestTestStepBuilder : TestStepBuilder
     {
         private readonly string driver;
         private readonly string connectionString;
@@ -57,7 +57,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
             return this;
         }
 
-        public JdbcRequestTestStepStruct Build()
+        public TestStep Build()
         {
             JdbcRequestTestStepStruct testStep = new JdbcRequestTestStepStruct();
             testStep.Type = TestStepTypes.JDBC_REQUEST;
