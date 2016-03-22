@@ -3,6 +3,7 @@ using IO.Swagger.Client;
 using IO.Swagger.Model;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 
 namespace ReadyAPI.TestServer.Client.Execution
@@ -28,6 +29,7 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         RecipeExecutor(Scheme scheme, string host, int port, string basePath)
         {
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
             testServerApi = new ReadyapiApi(string.Format("{0}://{1}:{2}{3}", scheme.Value, host, port, basePath));
         }
 
