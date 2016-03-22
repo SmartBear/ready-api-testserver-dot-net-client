@@ -87,12 +87,12 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
 
         public JdbcRequestTestStepBuilder AssertTimeout(long timeout)
         {
-            return AddAssertion(Assertions<Assertion>.JdbcRequestTimeout(timeout));
+            return AddAssertion(Assertions.Assertions.JdbcRequestTimeout(timeout));
         }
 
         public JdbcRequestTestStepBuilder AssertStatus()
         {
-            return AddAssertion(Assertions<Assertion>.JdbcRequestStatusOk());
+            return AddAssertion(Assertions.Assertions.JdbcRequestStatusOk());
         }
     }
 }

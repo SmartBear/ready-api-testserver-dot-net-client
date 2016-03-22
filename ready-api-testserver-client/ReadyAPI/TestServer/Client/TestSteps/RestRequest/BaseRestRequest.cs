@@ -146,52 +146,52 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         public TRestRequestBuilderType AssertJsonContent(string jsonPath, string expectedContent)
         {
-            return AddAssertion(Assertions<Assertion>.JsonPathContent(jsonPath, expectedContent).AllowWildcards());
+            return AddAssertion(Assertions.Assertions.JsonPathContent(jsonPath, expectedContent).AllowWildcards());
         }
 
         public TRestRequestBuilderType AssertJsonCount(string jsonPath, int expectedCount)
         {
-            return AddAssertion(Assertions<Assertion>.JsonPathCount(jsonPath, expectedCount).AllowWildcards());
+            return AddAssertion(Assertions.Assertions.JsonPathCount(jsonPath, expectedCount).AllowWildcards());
         }
 
         public TRestRequestBuilderType AssertContains(string content)
         {
-            return AddAssertion(Assertions<Assertion>.Contains(content) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.Contains(content) as AssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertNotContains(string content)
         {
-            return AddAssertion(Assertions<Assertion>.NotContains(content) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.NotContains(content) as AssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertScript(string script)
         {
-            return AddAssertion(Assertions<Assertion>.Script(script));
+            return AddAssertion(Assertions.Assertions.Script(script));
         }
 
         public TRestRequestBuilderType AssertXPath(string xpath, string expectedContent)
         {
-            return AddAssertion(Assertions<Assertion>.XPathContains(xpath, expectedContent) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.XPathContains(xpath, expectedContent) as AssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertXQuery(string xquery, string expectedContent)
         {
-            return AddAssertion(Assertions<Assertion>.XQueryContains(xquery, expectedContent) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.XQueryContains(xquery, expectedContent) as AssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertValidStatusCodes(params int[] statusCodes)
         {
-            return AddAssertion(Assertions<Assertion>.ValidStatusCodes(statusCodes) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.ValidStatusCodes(statusCodes) as AssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertInvalidStatusCodes(params int[] statusCodes)
         {
-            return AddAssertion(Assertions<Assertion>.InvalidStatusCodes(statusCodes) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.InvalidStatusCodes(statusCodes) as AssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertResponseTime(int timeInMillis)
         {
-            return AddAssertion(Assertions<Assertion>.ResponseSLA(timeInMillis));
+            return AddAssertion(Assertions.Assertions.ResponseSLA(timeInMillis));
         }
 
         protected TRestRequestBuilderType WithURI(string uri)

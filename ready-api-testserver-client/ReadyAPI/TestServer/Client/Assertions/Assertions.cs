@@ -2,37 +2,38 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class Assertions <T> where T : Assertion
+    public class Assertions
     {
-        public static JsonPathAssertionBuilder JsonPathContent(string jsonPath, string expectedContent)
+        public static JsonPathContentAssertionBuilder JsonPathContent(string jsonPath, string expectedContent)
         {
-            return (JsonPathAssertionBuilder)new JsonPathContentAssertionBuilder(jsonPath, expectedContent);
+            return new JsonPathContentAssertionBuilder(jsonPath, expectedContent);
         }
 
-        public static JsonPathAssertionBuilder JsonPathCount(string jsonPath, int expectedCount)
+        public static JsonPathCountAssertionBuilder JsonPathCount(string jsonPath, int expectedCount)
         {
-            return (JsonPathAssertionBuilder)(new JsonPathCountAssertionBuilder(jsonPath, expectedCount));
+            return new JsonPathCountAssertionBuilder(jsonPath, expectedCount);
         }
 
-        public static ContainsAssertionBuilder Contains(string token)
+        public static DefaultContainsAssertionBuilder Contains(string token)
         {
             return new DefaultContainsAssertionBuilder(token);
         }
 
-        public static ContainsAssertionBuilder NotContains(string token)
+        public static NotContainsAssertionBuilder NotContains(string token)
         {
             return new NotContainsAssertionBuilder(token);
         }
 
-        public static AssertionBuilder Script(string script)
+        public static DefaultGroovyScriptAssertionBuilder Script(string script)
         {
-            return (AssertionBuilder)new DefaultGroovyScriptAssertionBuilder(script);
+            return new DefaultGroovyScriptAssertionBuilder(script);
         }
 
-        public static HttpStatusCodeAssertionBuilder ValidStatusCodes(params int[] statusCodes)
+        public static ValidHttpStatusCodesAssertionBuilder ValidStatusCodes(params int[] statusCodes)
         {
             ValidHttpStatusCodesAssertionBuilder validHttpStatusCodesAssertionBuilder = new ValidHttpStatusCodesAssertionBuilder();
-            return validHttpStatusCodesAssertionBuilder.AddStatusCodes(statusCodes);
+            validHttpStatusCodesAssertionBuilder.AddStatusCodes(statusCodes);
+            return validHttpStatusCodesAssertionBuilder;
         }
 
         public static InvalidHttpStatusCodesAssertionBuilder InvalidStatusCodes(params int[] statusCodes)
@@ -42,7 +43,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
             return invalidHttpStatusCodesAssertionBuilder;
         }
 
-        public static XPathAssertionBuilder XPathContains(string xPath, string expectedContent)
+        public static XPathContainsAssertionBuilder XPathContains(string xPath, string expectedContent)
         {
             return new XPathContainsAssertionBuilder(xPath, expectedContent);
         }
@@ -52,14 +53,14 @@ namespace ReadyAPI.TestServer.Client.Assertions
             return new XQueryContainsAssertionBuilder(xQuery, expectedContent);
         }
 
-        public static AssertionBuilder ResponseSLA(int maxResponseTime)
+        public static DefaultResponseSLAAssertionBuilder ResponseSLA(int maxResponseTime)
         {
-            return (AssertionBuilder)new DefaultResponseSLAAssertionBuilder(maxResponseTime);
+            return new DefaultResponseSLAAssertionBuilder(maxResponseTime);
         }
 
-        public static AssertionBuilder JdbcRequestTimeout(long timeout)
+        public static JdbcTimeoutAssertionBuilder JdbcRequestTimeout(long timeout)
         {
-            return (AssertionBuilder)new JdbcTimeoutAssertionBuilder(timeout);
+            return new JdbcTimeoutAssertionBuilder(timeout);
         }
 
         /**
@@ -68,14 +69,14 @@ namespace ReadyAPI.TestServer.Client.Assertions
          * @return a builder that will construct the JDBC Timeout assertion
          */
 
-        public static AssertionBuilder JdbcRequestTimeout(string timeout)
+        public static JdbcTimeoutAssertionBuilder JdbcRequestTimeout(string timeout)
         {
-            return (AssertionBuilder)new JdbcTimeoutAssertionBuilder(timeout);
+            return new JdbcTimeoutAssertionBuilder(timeout);
         }
 
-        public static AssertionBuilder JdbcRequestStatusOk()
+        public static JdbcStatusAssertionBuilder JdbcRequestStatusOk()
         {
-            return (AssertionBuilder)new JdbcStatusAssertionBuilder();
+            return new JdbcStatusAssertionBuilder();
         }
     }
 }
