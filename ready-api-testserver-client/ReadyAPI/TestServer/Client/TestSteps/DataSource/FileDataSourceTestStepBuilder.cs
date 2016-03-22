@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
+﻿namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
     public class FileDataSourceTestStepBuilder : DataSourceTestStepBuilder<FileDataSourceBuilder>
     {

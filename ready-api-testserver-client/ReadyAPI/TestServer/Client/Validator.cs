@@ -36,6 +36,5 @@ namespace ReadyAPI.TestServer.Client
                 throw new System.InvalidOperationException(message);
             }
         }
-
     }
 }

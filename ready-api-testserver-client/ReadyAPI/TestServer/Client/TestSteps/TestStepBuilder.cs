@@ -2,8 +2,8 @@
 
 namespace ReadyAPI.TestServer.Client.TestSteps
 {
-    public interface TestStepBuilder<TestStepType> where TestStepType : TestStep
+    public interface TestStepBuilder<T> where T : TestStep
     {
-        TestStepType Build();
+        T Build();
     }
 }

@@ -1,6 +1,4 @@
-﻿using IO.Swagger.Model;
-
-namespace ReadyAPI.TestServer.Client.Assertions
+﻿namespace ReadyAPI.TestServer.Client.Assertions
 {
     public class Assertions
     {

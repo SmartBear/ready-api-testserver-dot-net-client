@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.TestSteps
 {
-    public class ExcelDataSourceTestStepBuilder : ReadyAPI.TestServer.Client.TestSteps.DataSource.DataSourceTestStepBuilder<ExcelDataSourceBuilder>
+    public class ExcelDataSourceTestStepBuilder : DataSourceTestStepBuilder<ExcelDataSourceBuilder>
     {
         public ExcelDataSourceTestStepBuilder()
         {

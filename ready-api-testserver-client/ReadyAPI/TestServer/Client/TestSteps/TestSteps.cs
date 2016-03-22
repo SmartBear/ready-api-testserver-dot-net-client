@@ -60,7 +60,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps
             return new FileDataSourceTestStepBuilder();
         }
 
-        public static GridDataSourceTestStepBuilder FridDataSource(string name)
+        public static GridDataSourceTestStepBuilder GridDataSource(string name)
         {
             return (GridDataSourceTestStepBuilder) new GridDataSourceTestStepBuilder().Named(name);
         }
