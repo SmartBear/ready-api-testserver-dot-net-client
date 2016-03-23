@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
-    public class GridDataSourceBuilder : DataSourceBuilder
+    public class GridDataSourceBuilder : IDataSourceBuilder
     {
         private Dictionary<string, List<string>> propertyValues = new Dictionary<string, List<string>>();
 

@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class XPathContainsAssertionBuilder : AbstractAssertionBuilder, XPathAssertionBuilder 
+    public class XPathContainsAssertionBuilder : AbstractAssertionBuilder, IXPathAssertionBuilder 
     {
         private XPathContainsAssertion xPathContainsAssertion = new XPathContainsAssertion();
 
@@ -12,13 +12,13 @@ namespace ReadyAPI.TestServer.Client.Assertions
             xPathContainsAssertion.ExpectedContent = expectedContent;
         }
 
-        public XPathAssertionBuilder AllowWildCards()//TODO: it should be XPathContainsAssertionBuilder
+        public IXPathAssertionBuilder AllowWildCards()//TODO: it should be XPathContainsAssertionBuilder
         {
             xPathContainsAssertion.AllowWildcards = true;
             return this;
         }
 
-        public XPathAssertionBuilder IgnoreComments()//TODO: it should be XPathContainsAssertionBuilder
+        public IXPathAssertionBuilder IgnoreComments()//TODO: it should be XPathContainsAssertionBuilder
         {
             xPathContainsAssertion.IgnoreComments = true;
             return this;

@@ -1,7 +1,7 @@
 ﻿namespace ReadyAPI.TestServer.Client.Auth
 { 
-    public interface AuthenticationBuilderWithDomain : AuthenticationBuilder
+    public interface IAuthenticationBuilderWithDomain : IAuthenticationBuilder
     {
-        AuthenticationBuilderWithDomain SetDomain(string domain);
+        IAuthenticationBuilderWithDomain SetDomain(string domain);
     }
 }

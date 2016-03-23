@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class ValidHttpStatusCodesAssertionBuilder : AbstractAssertionBuilder, HttpStatusCodeAssertionBuilder
+    public class ValidHttpStatusCodesAssertionBuilder : AbstractAssertionBuilder, IHttpStatusCodeAssertionBuilder
     {
         protected List<int?> statusCodes = new List<int?>();
 
-        public HttpStatusCodeAssertionBuilder AddStatusCode(int statusCode)
+        public IHttpStatusCodeAssertionBuilder AddStatusCode(int statusCode)
         {
             statusCodes.Add(statusCode);
             return this;
         }
 
-        public HttpStatusCodeAssertionBuilder AddStatusCodes(params int[] statusCodes)
+        public IHttpStatusCodeAssertionBuilder AddStatusCodes(params int[] statusCodes)
         {
             foreach (int? value in statusCodes)
             {

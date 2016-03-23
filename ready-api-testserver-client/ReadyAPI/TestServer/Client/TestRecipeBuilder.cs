@@ -6,9 +6,9 @@ namespace ReadyAPI.TestServer.Client
 {
     public class TestRecipeBuilder
     {
-        private List<TestStepBuilder> testStepBuilders = new List<TestStepBuilder>();
+        private List<ITestStepBuilder> testStepBuilders = new List<ITestStepBuilder>();
 
-        public TestRecipeBuilder AddStep(TestStepBuilder testStepBuilder)
+        public TestRecipeBuilder AddStep(ITestStepBuilder testStepBuilder)
         {
             this.testStepBuilders.Add(testStepBuilder);
             return this;
@@ -25,7 +25,7 @@ namespace ReadyAPI.TestServer.Client
         private void AddTestSteps(TestCase testCase)
         {
             List<TestStep> testSteps = new List<TestStep>();
-            foreach (TestStepBuilder testStepBuilder in testStepBuilders)
+            foreach (ITestStepBuilder testStepBuilder in testStepBuilders)
             {
                 testSteps.Add(testStepBuilder.Build());
             }

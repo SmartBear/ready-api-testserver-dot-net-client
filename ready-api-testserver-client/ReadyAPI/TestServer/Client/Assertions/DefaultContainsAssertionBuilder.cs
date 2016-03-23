@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class DefaultContainsAssertionBuilder : AbstractAssertionBuilder, ContainsAssertionBuilder 
+    public class DefaultContainsAssertionBuilder : AbstractAssertionBuilder, IContainsAssertionBuilder 
     {
         protected SimpleContainsAssertion containsAssertion = new SimpleContainsAssertion();
 
@@ -11,13 +11,13 @@ namespace ReadyAPI.TestServer.Client.Assertions
             containsAssertion.Token = token;
         }
 
-        public ContainsAssertionBuilder UseRegEx()
+        public IContainsAssertionBuilder UseRegEx()
         {
             containsAssertion.UseRegexp = true;
             return this;
         }
 
-        public ContainsAssertionBuilder IgnoreCase()
+        public IContainsAssertionBuilder IgnoreCase()
         {
             containsAssertion.IgnoreCase = true;
             return this;

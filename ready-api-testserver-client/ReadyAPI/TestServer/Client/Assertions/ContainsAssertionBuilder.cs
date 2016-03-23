@@ -1,9 +1,9 @@
 ﻿namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public interface ContainsAssertionBuilder : AssertionBuilder
+    public interface IContainsAssertionBuilder : IAssertionBuilder
     {
-        ContainsAssertionBuilder UseRegEx();
+        IContainsAssertionBuilder UseRegEx();
 
-        ContainsAssertionBuilder IgnoreCase();
+        IContainsAssertionBuilder IgnoreCase();
     }
 }

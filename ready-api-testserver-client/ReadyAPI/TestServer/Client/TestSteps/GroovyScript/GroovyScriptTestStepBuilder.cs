@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.TestSteps.GroovyScript
 {
-    public class GroovyScriptTestStepBuilder : TestStepBuilder
+    public class GroovyScriptTestStepBuilder : ITestStepBuilder
     {
         private readonly string scriptText;
         private string name;

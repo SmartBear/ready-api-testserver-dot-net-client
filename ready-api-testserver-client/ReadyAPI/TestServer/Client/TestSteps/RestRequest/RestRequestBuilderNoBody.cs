@@ -1,6 +1,4 @@
 ﻿namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 {
-    public interface RestRequestBuilderNoBody : RestRequestBuilder<RestRequestBuilderNoBody>
-    {
-    }
+    public interface IRestRequestBuilderNoBody : IRestRequestBuilder<IRestRequestBuilderNoBody>{}
 }

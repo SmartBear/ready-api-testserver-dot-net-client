@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.TestSteps
 {
-    public interface TestStepBuilder
+    public interface ITestStepBuilder
     {
         TestStep Build();
     }

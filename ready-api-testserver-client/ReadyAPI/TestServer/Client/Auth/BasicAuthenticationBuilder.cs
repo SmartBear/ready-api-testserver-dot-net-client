@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Auth
 {
-    public class BasicAuthenticationBuilder : AbstractAuthenticationBuilder
+    public class BasicAuthenticationBuilder : IAbstractAuthenticationBuilder
     {
         protected Authentication authentication = new Authentication();
 

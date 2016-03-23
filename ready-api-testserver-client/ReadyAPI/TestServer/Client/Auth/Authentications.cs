@@ -2,17 +2,17 @@
 {
     public class Authentications
     {
-        public static AuthenticationBuilder Basic(string username, string password)
+        public static IAuthenticationBuilder Basic(string username, string password)
         {
             return new BasicAuthenticationBuilder(username, password);
         }
 
-        public static AuthenticationBuilderWithDomain NTLM(string username, string password)
+        public static IAuthenticationBuilderWithDomain NTLM(string username, string password)
         {
             return new NTLMAuthenticationBuilder(username, password);
         }
 
-        public static AuthenticationBuilderWithDomain Kerberos(string username, string password)
+        public static IAuthenticationBuilderWithDomain Kerberos(string username, string password)
         {
             return new KerberosAuthenticationBuilder(username, password);
         }

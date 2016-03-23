@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class JsonPathContentAssertionBuilder : AbstractAssertionBuilder, JsonPathAssertionBuilder
+    public class JsonPathContentAssertionBuilder : AbstractAssertionBuilder, IJsonPathAssertionBuilder
     {
         private JsonPathContentAssertion jsonPathContentAssertion = new JsonPathContentAssertion();
 
@@ -12,10 +12,10 @@ namespace ReadyAPI.TestServer.Client.Assertions
             jsonPathContentAssertion.ExpectedContent = expectedContent;
         }
 
-        public JsonPathAssertionBuilder AllowWildcards()
+        public IJsonPathAssertionBuilder AllowWildcards()
         {
             jsonPathContentAssertion.AllowWildcards = true;
-            return this as JsonPathAssertionBuilder;
+            return this as IJsonPathAssertionBuilder;
         }
 
         public override Assertion Build()

@@ -1,9 +1,9 @@
 ﻿namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public interface HttpStatusCodeAssertionBuilder : AssertionBuilder
+    public interface IHttpStatusCodeAssertionBuilder : IAssertionBuilder
     {
-        HttpStatusCodeAssertionBuilder AddStatusCode(int statusCode);
+        IHttpStatusCodeAssertionBuilder AddStatusCode(int statusCode);
 
-        HttpStatusCodeAssertionBuilder AddStatusCodes(params int[] statusCodes);
+        IHttpStatusCodeAssertionBuilder AddStatusCodes(params int[] statusCodes);
     }
 }

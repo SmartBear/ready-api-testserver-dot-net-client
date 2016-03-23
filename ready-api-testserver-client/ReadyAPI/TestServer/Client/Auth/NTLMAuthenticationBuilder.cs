@@ -2,12 +2,12 @@
 
 namespace ReadyAPI.TestServer.Client.Auth
 {
-    public class NTLMAuthenticationBuilder : BasicAuthenticationBuilder, AuthenticationBuilderWithDomain
+    public class NTLMAuthenticationBuilder : BasicAuthenticationBuilder, IAuthenticationBuilderWithDomain
     {
         public NTLMAuthenticationBuilder(string username, string password): base(username, password)
         {}
 
-        public AuthenticationBuilderWithDomain SetDomain(string domain)
+        public IAuthenticationBuilderWithDomain SetDomain(string domain)
         {
             authentication.Domain = domain;
             return this;

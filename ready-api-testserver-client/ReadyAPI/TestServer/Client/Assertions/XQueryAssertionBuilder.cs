@@ -1,7 +1,7 @@
 ﻿namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public interface XQueryAssertionBuilder : AssertionBuilder
+    public interface IXQueryAssertionBuilder : IAssertionBuilder
     {
-        XQueryAssertionBuilder AllowWildcards();
+        IXQueryAssertionBuilder AllowWildcards();
     }
 }

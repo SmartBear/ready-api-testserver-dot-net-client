@@ -5,13 +5,13 @@ using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
 {
-    public class JdbcRequestTestStepBuilder : TestStepBuilder
+    public class JdbcRequestTestStepBuilder : ITestStepBuilder
     {
         private readonly string driver;
         private readonly string connectionString;
         private readonly bool storedProcedure;
         private string sqlQuery;
-        private List<AssertionBuilder> assertionBuilders = new List<AssertionBuilder>();
+        private List<IAssertionBuilder> assertionBuilders = new List<IAssertionBuilder>();
         private Dictionary<string, object> properties = new Dictionary<string, object>();
         private string name;
 
@@ -51,7 +51,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
             return this;
         }
 
-        public JdbcRequestTestStepBuilder AddAssertion(AssertionBuilder assertion)
+        public JdbcRequestTestStepBuilder AddAssertion(IAssertionBuilder assertion)
         {
             assertionBuilders.Add(assertion);
             return this;
@@ -74,7 +74,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
         private void SetAssertions(JdbcRequestTestStepStruct testStep)
         {
             List<Assertion> assertions = new List<Assertion>();
-            foreach (AssertionBuilder assertionBuilder in assertionBuilders)
+            foreach (IAssertionBuilder assertionBuilder in assertionBuilders)
             {
                 assertions.Add(((AbstractAssertionBuilder)assertionBuilder).Build());
             }

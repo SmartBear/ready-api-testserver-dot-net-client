@@ -6,13 +6,13 @@ using ReadyAPI.TestServer.Client.Auth;
 namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 {
     public class BaseRestRequest<TRestRequestBuilderType> :
-        RestRequestBuilder<TRestRequestBuilderType>, TestStepBuilder
+        IRestRequestBuilder<TRestRequestBuilderType>, ITestStepBuilder
         where 
-        TRestRequestBuilderType : class, RestRequestBuilder<TRestRequestBuilderType>
+        TRestRequestBuilderType : class, IRestRequestBuilder<TRestRequestBuilderType>
     {
         protected RestTestRequestStep testStep = new RestTestRequestStep();
         private List<Parameter> parameters = new List<Parameter>();
-        private List<AssertionBuilder> assertionBuilders = new List<Assertions.AssertionBuilder>();
+        private List<IAssertionBuilder> assertionBuilders = new List<Assertions.IAssertionBuilder>();
         private Dictionary<string, object> headers = new Dictionary<string, object>();
 
         public enum ParameterType { MATRIX, HEADER, QUERY, PATH };
@@ -23,7 +23,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
             testStep.Method = method.ToString();
         }
 
-        TestStep TestStepBuilder.Build()
+        TestStep ITestStepBuilder.Build()
         {
             Validator.ValidateNotEmpty(testStep.URI, "No URI set, it's a mandatory parameter for REST Request");
             Validator.ValidateNotEmpty(testStep.Method, "No HTTP method set, it's a mandatory parameter for REST Request");
@@ -38,7 +38,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
         private void SetAssertions(RestTestRequestStep testStep)
         {
             List<Assertion> assertions = new List<Assertion>();
-            foreach (AssertionBuilder assertionBuilder in assertionBuilders)
+            foreach (IAssertionBuilder assertionBuilder in assertionBuilders)
             {
                 assertions.Add(((AbstractAssertionBuilder)assertionBuilder).Build());
             }
@@ -81,7 +81,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
             return AddParameter<TRestRequestBuilderType>(parameterName, value, ParameterType.HEADER);
         }
 
-        public TRestRequestBuilderType AddAssertion(AssertionBuilder assertionBuilder)
+        public TRestRequestBuilderType AddAssertion(IAssertionBuilder assertionBuilder)
         {
             assertionBuilders.Add(assertionBuilder);
             return this as TRestRequestBuilderType;
@@ -137,9 +137,9 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
             return this as TRestRequestBuilderType;
         }
 
-        public TRestRequestBuilderType SetAuthentication(AuthenticationBuilder authenticationBuilder)
+        public TRestRequestBuilderType SetAuthentication(IAuthenticationBuilder authenticationBuilder)
         {
-            testStep.Authentication = (((AbstractAuthenticationBuilder)authenticationBuilder).Build());
+            testStep.Authentication = (((IAbstractAuthenticationBuilder)authenticationBuilder).Build());
             return this as TRestRequestBuilderType;
 
         }
@@ -156,12 +156,12 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         public TRestRequestBuilderType AssertContains(string content)
         {
-            return AddAssertion(Assertions.Assertions.Contains(content) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.Contains(content) as IAssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertNotContains(string content)
         {
-            return AddAssertion(Assertions.Assertions.NotContains(content) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.NotContains(content) as IAssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertScript(string script)
@@ -171,22 +171,22 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         public TRestRequestBuilderType AssertXPath(string xpath, string expectedContent)
         {
-            return AddAssertion(Assertions.Assertions.XPathContains(xpath, expectedContent) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.XPathContains(xpath, expectedContent) as IAssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertXQuery(string xquery, string expectedContent)
         {
-            return AddAssertion(Assertions.Assertions.XQueryContains(xquery, expectedContent) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.XQueryContains(xquery, expectedContent) as IAssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertValidStatusCodes(params int[] statusCodes)
         {
-            return AddAssertion(Assertions.Assertions.ValidStatusCodes(statusCodes) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.ValidStatusCodes(statusCodes) as IAssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertInvalidStatusCodes(params int[] statusCodes)
         {
-            return AddAssertion(Assertions.Assertions.InvalidStatusCodes(statusCodes) as AssertionBuilder);
+            return AddAssertion(Assertions.Assertions.InvalidStatusCodes(statusCodes) as IAssertionBuilder);
         }
 
         public TRestRequestBuilderType AssertResponseTime(int timeInMillis)

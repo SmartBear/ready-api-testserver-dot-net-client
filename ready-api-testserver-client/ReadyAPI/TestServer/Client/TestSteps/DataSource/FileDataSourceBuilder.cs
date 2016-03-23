@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
-    public class FileDataSourceBuilder : DataSourceBuilder
+    public class FileDataSourceBuilder : IDataSourceBuilder
     {
         private FileDataSource fileDataSource = new FileDataSource();
         private List<string> properties = new List<string>();

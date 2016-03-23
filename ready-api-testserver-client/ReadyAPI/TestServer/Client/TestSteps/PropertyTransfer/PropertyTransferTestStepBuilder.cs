@@ -3,7 +3,7 @@ using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 {
-    public class PropertyTransferTestStepBuilder : TestStepBuilder
+    public class PropertyTransferTestStepBuilder : ITestStepBuilder
     {
         private PropertyTransferTestStep testStep = new PropertyTransferTestStep();
         private List<PropertyTransferBuilder> propertyTransferBuilders = new List<PropertyTransferBuilder>();

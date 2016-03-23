@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Auth
 {
-    public interface AbstractAuthenticationBuilder : AuthenticationBuilder
+    public interface IAbstractAuthenticationBuilder : IAuthenticationBuilder
     {
         Authentication Build();
     }

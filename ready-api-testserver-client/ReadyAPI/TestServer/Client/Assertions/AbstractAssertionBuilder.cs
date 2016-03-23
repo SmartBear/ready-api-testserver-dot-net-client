@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public abstract class AbstractAssertionBuilder : AssertionBuilder
+    public abstract class AbstractAssertionBuilder : IAssertionBuilder
     {
         public abstract Assertion Build();
     }

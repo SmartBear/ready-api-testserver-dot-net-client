@@ -1,7 +1,7 @@
 ﻿namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public interface JsonPathAssertionBuilder : AssertionBuilder
+    public interface IJsonPathAssertionBuilder : IAssertionBuilder
     {
-        JsonPathAssertionBuilder AllowWildcards();
+        IJsonPathAssertionBuilder AllowWildcards();
     }
 }

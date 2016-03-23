@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
-    public class DataSourceTestStepBuilder<TDataSourceBuilderType> : TestStepBuilder where TDataSourceBuilderType : DataSourceBuilder
+    public class DataSourceTestStepBuilder<TDataSourceBuilderType> : ITestStepBuilder where TDataSourceBuilderType : IDataSourceBuilder
     {
         private DataSourceTestStep testStep = new DataSourceTestStep();
         private TDataSourceBuilderType dataSourceBuilder;
@@ -25,7 +25,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
             return dataSourceBuilder;
         }
 
-        public DataSourceTestStepBuilder<TDataSourceBuilderType> AddTestStep(TestStepBuilder testStepBuilder)
+        public DataSourceTestStepBuilder<TDataSourceBuilderType> AddTestStep(ITestStepBuilder testStepBuilder)
         {
             this.nestedTestSteps.Add(testStepBuilder.Build());
             return this;

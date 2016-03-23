@@ -4,8 +4,8 @@ using ReadyAPI.TestServer.Client.Auth;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 {
-    public interface RestRequestBuilder<TRestRequestBuilderType> : TestStepBuilder
-        where TRestRequestBuilderType : class, RestRequestBuilder<TRestRequestBuilderType>
+    public interface IRestRequestBuilder<TRestRequestBuilderType> : ITestStepBuilder
+        where TRestRequestBuilderType : class, IRestRequestBuilder<TRestRequestBuilderType>
     {
         TRestRequestBuilderType Named(string name);
 
@@ -17,7 +17,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         TRestRequestBuilderType AddHeaderParameter(string parameterName, string value);
 
-        TRestRequestBuilderType AddAssertion(AssertionBuilder assertionBuilder);
+        TRestRequestBuilderType AddAssertion(IAssertionBuilder assertionBuilder);
 
         TRestRequestBuilderType AddHeader(string name, List<string> values);
 
@@ -33,7 +33,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         TRestRequestBuilderType PostQuerystring();
 
-        TRestRequestBuilderType SetAuthentication(AuthenticationBuilder authenticationBuilder);
+        TRestRequestBuilderType SetAuthentication(IAuthenticationBuilder authenticationBuilder);
 
         TRestRequestBuilderType AssertJsonContent(string jsonPath, string expectedContent);
 

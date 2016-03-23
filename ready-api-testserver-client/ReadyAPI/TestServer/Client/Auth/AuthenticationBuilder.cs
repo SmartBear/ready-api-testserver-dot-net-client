@@ -1,6 +1,6 @@
 ﻿namespace ReadyAPI.TestServer.Client.Auth
 {
-    public interface AuthenticationBuilder
+    public interface IAuthenticationBuilder
     {
     }
 }

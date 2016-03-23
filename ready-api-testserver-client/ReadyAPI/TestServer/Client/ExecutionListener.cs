@@ -3,7 +3,7 @@ using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client
 {
-    public interface ExecutionListener
+    public interface IExecutionListener
     {
         void RequestSent(ProjectResultReport projectResultReport);
         void ExecutionFinished(ProjectResultReport projectResultReport);

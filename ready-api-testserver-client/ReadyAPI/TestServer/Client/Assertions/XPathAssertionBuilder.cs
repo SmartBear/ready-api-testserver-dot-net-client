@@ -1,10 +1,10 @@
 ﻿namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public interface XPathAssertionBuilder : AssertionBuilder
+    public interface IXPathAssertionBuilder : IAssertionBuilder
     {
-        XPathAssertionBuilder AllowWildCards();
+        IXPathAssertionBuilder AllowWildCards();
 
-        XPathAssertionBuilder IgnoreComments();
+        IXPathAssertionBuilder IgnoreComments();
 
         XPathContainsAssertionBuilder IgnoreNamespaces();
     }

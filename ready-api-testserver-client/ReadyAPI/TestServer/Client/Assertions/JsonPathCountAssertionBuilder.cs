@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class JsonPathCountAssertionBuilder : AbstractAssertionBuilder, JsonPathAssertionBuilder
+    public class JsonPathCountAssertionBuilder : AbstractAssertionBuilder, IJsonPathAssertionBuilder
     {
         private JsonPathCountAssertion jsonPathCountAssertion = new JsonPathCountAssertion();
 
@@ -12,7 +12,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
             jsonPathCountAssertion.ExpectedCount = expectedCount;
         }
 
-        public JsonPathAssertionBuilder AllowWildcards()
+        public IJsonPathAssertionBuilder AllowWildcards()
         {
             jsonPathCountAssertion.AllowWildcards = true;
             return this;

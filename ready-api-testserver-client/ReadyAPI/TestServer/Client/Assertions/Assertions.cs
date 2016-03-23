@@ -46,7 +46,7 @@
             return new XPathContainsAssertionBuilder(xPath, expectedContent);
         }
 
-        public static XQueryAssertionBuilder XQueryContains(string xQuery, string expectedContent)
+        public static IXQueryAssertionBuilder XQueryContains(string xQuery, string expectedContent)
         {
             return new XQueryContainsAssertionBuilder(xQuery, expectedContent);
         }

@@ -1,11 +1,11 @@
 ﻿namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 {
-    public interface RestRequestBuilderWithBody : RestRequestBuilder<RestRequestBuilderWithBody>
+    public interface IRestRequestBuilderWithBody : IRestRequestBuilder<IRestRequestBuilderWithBody>
     {
-        RestRequestBuilderWithBody WithRequestBody(string requestBody);
+        IRestRequestBuilderWithBody WithRequestBody(string requestBody);
 
-        RestRequestBuilderWithBody WithMediaType(string mediaType);
+        IRestRequestBuilderWithBody WithMediaType(string mediaType);
 
-        RestRequestBuilderWithBody WithEncoding(string encoding);
+        IRestRequestBuilderWithBody WithEncoding(string encoding);
     }
 }

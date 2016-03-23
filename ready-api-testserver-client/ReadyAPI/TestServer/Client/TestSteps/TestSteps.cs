@@ -15,22 +15,22 @@ namespace ReadyAPI.TestServer.Client.TestSteps
             return new RestRequestTestStepBuilder();
         }
 
-        public static RestRequestBuilderNoBody GetRequest(string uri)
+        public static IRestRequestBuilderNoBody GetRequest(string uri)
         {
             return new RestRequestTestStepBuilder().Get(uri);
         }
 
-        public static RestRequestBuilderWithBody PostRequest(string uri)
+        public static IRestRequestBuilderWithBody PostRequest(string uri)
         {
             return new RestRequestTestStepBuilder().Post(uri);
         }
 
-        public static RestRequestBuilderWithBody PutRequest(string uri)
+        public static IRestRequestBuilderWithBody PutRequest(string uri)
         {
             return new RestRequestTestStepBuilder().Put(uri);
         }
 
-        public static RestRequestBuilderNoBody DeleteRequest(string uri)
+        public static IRestRequestBuilderNoBody DeleteRequest(string uri)
         {
             return new RestRequestTestStepBuilder().Delete(uri);
         }
@@ -40,7 +40,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps
             return new PropertyTransferTestStepBuilder();
         }
 
-        public static DataSourceTestStepBuilder<T> DataSource<T>() where T : DataSourceBuilder
+        public static DataSourceTestStepBuilder<T> DataSource<T>() where T : IDataSourceBuilder
         {
             return new DataSourceTestStepBuilder<T>();
         }

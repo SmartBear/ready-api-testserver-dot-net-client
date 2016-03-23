@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
-    public class ExcelDataSourceBuilder : DataSourceBuilder
+    public class ExcelDataSourceBuilder : IDataSourceBuilder
     {
         private ExcelDataSource excelDataSource = new ExcelDataSource();
         private List<string> properties = new List<string>();

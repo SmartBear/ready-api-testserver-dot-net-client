@@ -16,7 +16,7 @@ namespace ReadyAPI.TestServer.Client.Execution
         readonly ReadyapiApi testServerApi;
         string user;
         string password;
-        readonly IList<ExecutionListener> executionListeners = new SynchronizedCollection<ExecutionListener>();
+        readonly IList<IExecutionListener> executionListeners = new SynchronizedCollection<IExecutionListener>();
 
         public RecipeExecutor(Scheme scheme, string host, int port) : this(scheme, host, port, ServerDefaults.VERSION_PREFIX)
         { }
@@ -41,12 +41,12 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
         }
 
-        public void AddExecutionListener(ExecutionListener listener)
+        public void AddExecutionListener(IExecutionListener listener)
         {
             executionListeners.Add(listener);
         }
 
-        public void RemoveExecutionListener(ExecutionListener listener)
+        public void RemoveExecutionListener(IExecutionListener listener)
         {
             executionListeners.Remove(listener);
         }
@@ -56,7 +56,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             Execution execution = ExecuteTestCase(recipe.TestCase, true);
             if (execution != null)
             {
-                foreach (ExecutionListener executionListener in executionListeners)
+                foreach (IExecutionListener executionListener in executionListeners)
                 {
                     executionListener.RequestSent(execution.CurrentReport);
                 }
@@ -116,7 +116,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
             catch (Exception e)
             {
-                foreach (ExecutionListener executionListener in executionListeners)
+                foreach (IExecutionListener executionListener in executionListeners)
                 {
                     executionListener.ErrorOccurred(e);
                 }
@@ -129,7 +129,7 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         private void NotifyExecutionFinished(ProjectResultReport executionStatus)
         {
-            foreach (ExecutionListener executionListener in executionListeners)
+            foreach (IExecutionListener executionListener in executionListeners)
             {
                 executionListener.ExecutionFinished(executionStatus);
             }
