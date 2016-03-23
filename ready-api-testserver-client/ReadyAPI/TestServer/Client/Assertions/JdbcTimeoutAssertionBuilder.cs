@@ -3,7 +3,7 @@ using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class JdbcTimeoutAssertionBuilder: AbstractAssertionBuilder
+    public class JdbcTimeoutAssertionBuilder : AbstractAssertionBuilder
     {
         private object timeout;
 
@@ -16,7 +16,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
         {
             if (timeout == null)
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Timeout cannot be null value.");
             }
             this.timeout = timeout;
         }

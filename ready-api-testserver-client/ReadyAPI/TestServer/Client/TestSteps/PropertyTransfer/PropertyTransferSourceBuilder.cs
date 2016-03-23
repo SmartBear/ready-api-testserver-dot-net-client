@@ -26,7 +26,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 
         public PropertyTransferSourceBuilder WithPathLanguage(PathLanguage pathLanguage)
         {
-            source.PathLanguage = pathLanguage.ToString();//possible mistake is here, need to double check
+            source.PathLanguage = pathLanguage.ToString();//TODO: possible mistake is here, need to double check
             return this;
         }
 

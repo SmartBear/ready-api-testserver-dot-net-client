@@ -45,7 +45,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
             return this;
         }
 
-        public JdbcRequestTestStepBuilder AddProperty(string propertyName, Object value)
+        public JdbcRequestTestStepBuilder AddProperty(string propertyName, object value)
         {
             properties.Add(propertyName, value);
             return this;
@@ -80,10 +80,6 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
             }
             testStep.Assertions = assertions;
         }
-
-        /**
-         * Assertion shortcuts
-         */
 
         public JdbcRequestTestStepBuilder AssertTimeout(long timeout)
         {

@@ -1,5 +1,4 @@
-﻿using IO.Swagger.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ReadyAPI.TestServer.Client.Assertions;
 using ReadyAPI.TestServer.Client.Auth;
 
@@ -53,6 +52,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
         TRestRequestBuilderType AssertValidStatusCodes(params int[] statusCodes);
 
         TRestRequestBuilderType AssertInvalidStatusCodes(params int[] statusCodes);
+
         TRestRequestBuilderType AssertResponseTime(int timeInMillis);
     }
 }

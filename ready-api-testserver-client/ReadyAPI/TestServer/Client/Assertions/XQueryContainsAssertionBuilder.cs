@@ -12,7 +12,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
             xQueryContainsAssertion.ExpectedContent = expectedContent;
         }
 
-        public XQueryAssertionBuilder AllowWildcards()//XQueryContainsAssertionBuilder
+        public XQueryAssertionBuilder AllowWildcards()//TODO: XQueryContainsAssertionBuilder
         {
             xQueryContainsAssertion.AllowWildcards = true;
             return this;

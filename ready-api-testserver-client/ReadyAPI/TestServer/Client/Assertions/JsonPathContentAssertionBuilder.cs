@@ -1,5 +1,4 @@
-﻿using System;
-using IO.Swagger.Model;
+﻿using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
@@ -7,7 +6,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
     {
         private JsonPathContentAssertion jsonPathContentAssertion = new JsonPathContentAssertion();
 
-        public JsonPathContentAssertionBuilder(String jsonPath, String expectedContent)
+        public JsonPathContentAssertionBuilder(string jsonPath, string expectedContent)
         {
             jsonPathContentAssertion.JsonPath = jsonPath;
             jsonPathContentAssertion.ExpectedContent = expectedContent;

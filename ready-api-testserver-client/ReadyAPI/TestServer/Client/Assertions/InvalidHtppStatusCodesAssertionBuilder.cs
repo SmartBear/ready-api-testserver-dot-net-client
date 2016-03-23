@@ -2,10 +2,9 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class InvalidHttpStatusCodesAssertionBuilder: ValidHttpStatusCodesAssertionBuilder
+    public class InvalidHttpStatusCodesAssertionBuilder : ValidHttpStatusCodesAssertionBuilder
     {
-        public InvalidHttpStatusCodesAssertionBuilder() {
-        }
+        public InvalidHttpStatusCodesAssertionBuilder() {}
 
         public override Assertion Build()
         {

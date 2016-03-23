@@ -1,25 +1,24 @@
-﻿using System;
-using IO.Swagger.Model;
+﻿using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class XPathContainsAssertionBuilder: AbstractAssertionBuilder, XPathAssertionBuilder 
+    public class XPathContainsAssertionBuilder : AbstractAssertionBuilder, XPathAssertionBuilder 
     {
         private XPathContainsAssertion xPathContainsAssertion = new XPathContainsAssertion();
 
-        public XPathContainsAssertionBuilder(String xPath, String expectedContent)
+        public XPathContainsAssertionBuilder(string xPath, string expectedContent)
         {
             xPathContainsAssertion.Xpath = xPath;
             xPathContainsAssertion.ExpectedContent = expectedContent;
         }
 
-        public XPathAssertionBuilder AllowWildCards()//originally XPathContainsAssertionBuilder
+        public XPathAssertionBuilder AllowWildCards()//TODO: it should be XPathContainsAssertionBuilder
         {
             xPathContainsAssertion.AllowWildcards = true;
             return this;
         }
 
-        public XPathAssertionBuilder IgnoreComments()//originally XPathContainsAssertionBuilder
+        public XPathAssertionBuilder IgnoreComments()//TODO: it should be XPathContainsAssertionBuilder
         {
             xPathContainsAssertion.IgnoreComments = true;
             return this;

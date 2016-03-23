@@ -1,5 +1,4 @@
-﻿using System;
-using IO.Swagger.Model;
+﻿using IO.Swagger.Model;
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
@@ -7,7 +6,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
     {
         private JsonPathCountAssertion jsonPathCountAssertion = new JsonPathCountAssertion();
 
-        public JsonPathCountAssertionBuilder(String jsonPath, int expectedCount)
+        public JsonPathCountAssertionBuilder(string jsonPath, int expectedCount)
         {
             jsonPathCountAssertion.JsonPath = jsonPath;
             jsonPathCountAssertion.ExpectedCount = expectedCount;

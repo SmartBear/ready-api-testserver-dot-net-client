@@ -2,7 +2,7 @@
 
 namespace ReadyAPI.TestServer.Client.Assertions
 {
-    public class DefaultGroovyScriptAssertionBuilder: AbstractAssertionBuilder
+    public class DefaultGroovyScriptAssertionBuilder : AbstractAssertionBuilder
     {
         private GroovyScriptAssertion scriptAssertion = new GroovyScriptAssertion();
 

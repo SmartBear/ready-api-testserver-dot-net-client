@@ -4,9 +4,7 @@ namespace ReadyAPI.TestServer.Client.Assertions
 {
     public class NotContainsAssertionBuilder : DefaultContainsAssertionBuilder
     {
-        public NotContainsAssertionBuilder(string token) : base(token)
-        {
-        }
+        public NotContainsAssertionBuilder(string token) : base(token){}
 
         public override Assertion Build()
         {
