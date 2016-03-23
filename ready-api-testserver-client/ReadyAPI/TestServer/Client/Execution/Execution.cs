@@ -9,27 +9,27 @@ namespace ReadyAPI.TestServer.Client.Execution
      */
     public class Execution
     {
-        private readonly ConcurrentQueue<ProjectResultReport> executionStatusReports = new ConcurrentQueue<ProjectResultReport>();
-        private readonly string id;
+        private readonly ConcurrentQueue<ProjectResultReport> _executionStatusReports = new ConcurrentQueue<ProjectResultReport>();
+        private readonly string _id;
 
         public Execution(ProjectResultReport projectResultReport)
         {
-            executionStatusReports.Enqueue(projectResultReport);
-            this.id = projectResultReport.ExecutionID;
+            _executionStatusReports.Enqueue(projectResultReport);
+            this._id = projectResultReport.ExecutionID;
         }
 
         public string Id
         {
             get
             { 
-                return id;
+                return _id;
             }
         }
 
         private ProjectResultReport GetProjectResultReport()
         {
             ProjectResultReport projectResultReport;
-            executionStatusReports.TryPeek(out projectResultReport);
+            _executionStatusReports.TryPeek(out projectResultReport);
             return projectResultReport;
         }
 
@@ -52,7 +52,7 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         public void AddResultReport(ProjectResultReport newReport)
         {
-            executionStatusReports.Enqueue(newReport);
+            _executionStatusReports.Enqueue(newReport);
         }
 
         public List<string> ErrorMessages
@@ -62,12 +62,12 @@ namespace ReadyAPI.TestServer.Client.Execution
                 List<string> result = new List<string>();
 
                 ProjectResultReport projectResultReport;
-                executionStatusReports.TryPeek(out projectResultReport);
+                _executionStatusReports.TryPeek(out projectResultReport);
 
                 if (projectResultReport != null)
                 {
                     ProjectResultReport executionStatusReport;
-                    executionStatusReports.TryPeek(out executionStatusReport);
+                    _executionStatusReports.TryPeek(out executionStatusReport);
 
                     foreach (TestSuiteResultReport testSuiteReport in executionStatusReport.TestSuiteResultReports)
                     {

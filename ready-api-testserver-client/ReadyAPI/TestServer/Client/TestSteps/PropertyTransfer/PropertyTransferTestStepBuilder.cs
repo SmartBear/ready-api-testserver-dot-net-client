@@ -5,31 +5,31 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 {
     public class PropertyTransferTestStepBuilder : ITestStepBuilder
     {
-        private PropertyTransferTestStep testStep = new PropertyTransferTestStep();
-        private List<PropertyTransferBuilder> propertyTransferBuilders = new List<PropertyTransferBuilder>();
+        private PropertyTransferTestStep _testStep = new PropertyTransferTestStep();
+        private List<PropertyTransferBuilder> _propertyTransferBuilders = new List<PropertyTransferBuilder>();
 
         public PropertyTransferTestStepBuilder Named(string name)
         {
-            testStep.Name = name;
+            _testStep.Name = name;
             return this;
         }
 
         public PropertyTransferTestStepBuilder AddTransfer(PropertyTransferBuilder propertyTransferBuilder)
         {
-            this.propertyTransferBuilders.Add(propertyTransferBuilder);
+            this._propertyTransferBuilders.Add(propertyTransferBuilder);
             return this;
         }
 
         public TestStep Build()
         {
-            testStep.Type = TestStepTypes.PROPERTY_TRANSFER;
+            _testStep.Type = TestStepTypes.PROPERTY_TRANSFER;
             List<IO.Swagger.Model.PropertyTransfer> transfers = new List<IO.Swagger.Model.PropertyTransfer>();
-            foreach (PropertyTransferBuilder propertyTransferBuilder in propertyTransferBuilders)
+            foreach (PropertyTransferBuilder propertyTransferBuilder in _propertyTransferBuilders)
             {
                 transfers.Add(propertyTransferBuilder.Build());
             }
-            testStep.Transfers = transfers;
-            return testStep;
+            _testStep.Transfers = transfers;
+            return _testStep;
         }
     }
 }

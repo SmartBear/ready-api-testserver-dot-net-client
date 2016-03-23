@@ -7,19 +7,19 @@
 
         public IRestRequestBuilderWithBody WithRequestBody(string requestBody)
         {
-            testStep.RequestBody = requestBody;
+            _testStep.RequestBody = requestBody;
             return this;
         }
 
         public IRestRequestBuilderWithBody WithMediaType(string mediaType)
         {
-            testStep.MediaType = mediaType;
+            _testStep.MediaType = mediaType;
             return this;
         }
 
         public IRestRequestBuilderWithBody WithEncoding(string encoding)
         {
-            testStep.Encoding = encoding;
+            _testStep.Encoding = encoding;
             return this;
         }
     }

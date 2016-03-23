@@ -4,26 +4,26 @@ namespace ReadyAPI.TestServer.Client.Assertions
 {
     public class JsonPathContentAssertionBuilder : AbstractAssertionBuilder, IJsonPathAssertionBuilder
     {
-        private JsonPathContentAssertion jsonPathContentAssertion = new JsonPathContentAssertion();
+        private JsonPathContentAssertion _jsonPathContentAssertion = new JsonPathContentAssertion();
 
         public JsonPathContentAssertionBuilder(string jsonPath, string expectedContent)
         {
-            jsonPathContentAssertion.JsonPath = jsonPath;
-            jsonPathContentAssertion.ExpectedContent = expectedContent;
+            _jsonPathContentAssertion.JsonPath = jsonPath;
+            _jsonPathContentAssertion.ExpectedContent = expectedContent;
         }
 
         public IJsonPathAssertionBuilder AllowWildcards()
         {
-            jsonPathContentAssertion.AllowWildcards = true;
+            _jsonPathContentAssertion.AllowWildcards = true;
             return this as IJsonPathAssertionBuilder;
         }
 
         public override Assertion Build()
         {
-            Validator.ValidateNotEmpty(jsonPathContentAssertion.JsonPath, "Missing JSON path, it's a mandatory parameter for JsonPathContentAssertion");
-            Validator.ValidateNotEmpty(jsonPathContentAssertion.ExpectedContent, "Missing expected content, it's a mandatory parameter for JsonPathContentAssertion");
-            jsonPathContentAssertion.Type = "JsonPath Match";
-            return jsonPathContentAssertion;
+            Validator.ValidateNotEmpty(_jsonPathContentAssertion.JsonPath, "Missing JSON path, it's a mandatory parameter for JsonPathContentAssertion");
+            Validator.ValidateNotEmpty(_jsonPathContentAssertion.ExpectedContent, "Missing expected content, it's a mandatory parameter for JsonPathContentAssertion");
+            _jsonPathContentAssertion.Type = "JsonPath Match";
+            return _jsonPathContentAssertion;
         }
     }
 }

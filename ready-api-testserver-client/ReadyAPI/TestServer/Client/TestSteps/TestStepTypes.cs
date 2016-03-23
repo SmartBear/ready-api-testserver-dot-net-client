@@ -8,16 +8,16 @@
         public static readonly string GROOVY_SCRIPT = "Groovy";
         public static readonly string JDBC_REQUEST = "JDBC Request";
 
-        private string type;
+        private string _type;
 
         public TestStepTypes(string type)
         {
-            this.type = type;
+            this._type = type;
         }
 
         public override string ToString()
         {
-            return type;
+            return _type;
         }
     }
 }

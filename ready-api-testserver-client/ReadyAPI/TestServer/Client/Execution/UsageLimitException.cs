@@ -5,8 +5,6 @@ namespace ReadyAPI.TestServer.Client.Execution
 {
     public class UsageLimitException : ApiException
     {
-        public UsageLimitException(int statusCode, string responseBody, Dictionary<string, List<string>> headers) : base(statusCode, responseBody, headers)
-        {
-        }
+        public UsageLimitException(int statusCode, string responseBody, Dictionary<string, List<string>> headers) : base(statusCode, responseBody, headers){}
     }
 }

@@ -4,18 +4,18 @@ namespace ReadyAPI.TestServer.Client.Assertions
 {
     public class DefaultGroovyScriptAssertionBuilder : AbstractAssertionBuilder
     {
-        private GroovyScriptAssertion scriptAssertion = new GroovyScriptAssertion();
+        private GroovyScriptAssertion _scriptAssertion = new GroovyScriptAssertion();
 
         public DefaultGroovyScriptAssertionBuilder(string script)
         {
-            scriptAssertion.Script = script;
+            _scriptAssertion.Script = script;
         }
 
         public override Assertion Build()
         {
-            Validator.ValidateNotEmpty(scriptAssertion.Script, "Missing script. Script is a mandatory parameter for ScriptAssertion");
-            scriptAssertion.Type = "Script Assertion";
-            return scriptAssertion;
+            Validator.ValidateNotEmpty(_scriptAssertion.Script, "Missing script. Script is a mandatory parameter for ScriptAssertion");
+            _scriptAssertion.Type = "Script Assertion";
+            return _scriptAssertion;
         }
     }
 }

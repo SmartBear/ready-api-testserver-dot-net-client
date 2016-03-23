@@ -4,8 +4,8 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
 {
     public class JdbcConnection
     {
-        private readonly string driver;
-        private readonly string connectionString;
+        private readonly string _driver;
+        private readonly string _connectionString;
 
         public JdbcConnection(string driver, string connectionString)
         {
@@ -18,18 +18,18 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
                 throw new NullReferenceException("Connection string required");
             }
 
-            this.driver = driver;
-            this.connectionString = connectionString;
+            this._driver = driver;
+            this._connectionString = connectionString;
         }
 
         public JdbcRequestTestStepBuilder JdbcRequest(string sql)
         {
-            return new JdbcRequestTestStepBuilder(driver, connectionString, false).WithSql(sql);
+            return new JdbcRequestTestStepBuilder(_driver, _connectionString, false).WithSql(sql);
         }
 
         public JdbcRequestTestStepBuilder StoredProcedureCall(string sql)
         {
-            return new JdbcRequestTestStepBuilder(driver, connectionString, true).WithSql(sql);
+            return new JdbcRequestTestStepBuilder(_driver, _connectionString, true).WithSql(sql);
         }
     }
 }

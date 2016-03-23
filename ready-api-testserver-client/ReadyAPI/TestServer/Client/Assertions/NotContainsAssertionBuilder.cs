@@ -8,9 +8,9 @@ namespace ReadyAPI.TestServer.Client.Assertions
 
         public override Assertion Build()
         {
-            Validator.ValidateNotEmpty(containsAssertion.Token, "Missing token, it's a mandatory parameter for NotContainsAssertion");
-            containsAssertion.Type = "Not Contains";
-            return containsAssertion;
+            Validator.ValidateNotEmpty(_containsAssertion.Token, "Missing token, it's a mandatory parameter for NotContainsAssertion");
+            _containsAssertion.Type = "Not Contains";
+            return _containsAssertion;
         }
     }
 }

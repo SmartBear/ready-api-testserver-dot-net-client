@@ -5,38 +5,38 @@ namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
     public class DataSourceTestStepBuilder<TDataSourceBuilderType> : ITestStepBuilder where TDataSourceBuilderType : IDataSourceBuilder
     {
-        private DataSourceTestStep testStep = new DataSourceTestStep();
-        private TDataSourceBuilderType dataSourceBuilder;
-        private List<TestStep> nestedTestSteps = new List<TestStep>();
+        private DataSourceTestStep _testStep = new DataSourceTestStep();
+        private TDataSourceBuilderType _dataSourceBuilder;
+        private List<TestStep> _nestedTestSteps = new List<TestStep>();
         public DataSourceTestStepBuilder<TDataSourceBuilderType> Named(string name)
         {
-            testStep.Name = name;
+            _testStep.Name = name;
             return this;
         }
 
         public DataSourceTestStepBuilder<TDataSourceBuilderType> AddDataSource(TDataSourceBuilderType dataSourceBuilder)
         {
-            this.dataSourceBuilder = dataSourceBuilder;
+            this._dataSourceBuilder = dataSourceBuilder;
             return this;
         }
 
         protected TDataSourceBuilderType GetDataSourceBuilder()
         {
-            return dataSourceBuilder;
+            return _dataSourceBuilder;
         }
 
         public DataSourceTestStepBuilder<TDataSourceBuilderType> AddTestStep(ITestStepBuilder testStepBuilder)
         {
-            this.nestedTestSteps.Add(testStepBuilder.Build());
+            this._nestedTestSteps.Add(testStepBuilder.Build());
             return this;
         }
 
         public TestStep Build()
         {
-            testStep.Type = new TestStepTypes(TestStepTypes.DATA_SOURCE).ToString();
-            testStep.DataSource = dataSourceBuilder.Build();
-            testStep.TestSteps = nestedTestSteps;
-            return testStep;
+            _testStep.Type = new TestStepTypes(TestStepTypes.DATA_SOURCE).ToString();
+            _testStep.DataSource = _dataSourceBuilder.Build();
+            _testStep.TestSteps = _nestedTestSteps;
+            return _testStep;
         }
     }
 }

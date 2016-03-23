@@ -5,18 +5,18 @@
         private static readonly string HTTP_SCHEME = "http";
         private static readonly string HTTPS_SCHEME = "https";
 
-        string value;
+        private string _value;
 
         private Scheme(string value)
         {
-            this.value = value;
+            this._value = value;
         }
 
         public string Value
         {
             get
             {
-                return value;
+                return _value;
             }
         }
 

@@ -7,30 +7,30 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
 {
     public class JdbcRequestTestStepBuilder : ITestStepBuilder
     {
-        private readonly string driver;
-        private readonly string connectionString;
-        private readonly bool storedProcedure;
-        private string sqlQuery;
-        private List<IAssertionBuilder> assertionBuilders = new List<IAssertionBuilder>();
-        private Dictionary<string, object> properties = new Dictionary<string, object>();
-        private string name;
+        private readonly string _driver;
+        private readonly string _connectionString;
+        private readonly bool _storedProcedure;
+        private string _sqlQuery;
+        private List<IAssertionBuilder> _assertionBuilders = new List<IAssertionBuilder>();
+        private Dictionary<string, object> _properties = new Dictionary<string, object>();
+        private string _name;
 
         public JdbcRequestTestStepBuilder(string driver, string connectionString, bool storedProcedure)
         {
-            this.driver = driver;
-            this.connectionString = connectionString;
-            this.storedProcedure = storedProcedure;
+            this._driver = driver;
+            this._connectionString = connectionString;
+            this._storedProcedure = storedProcedure;
         }
 
         public JdbcRequestTestStepBuilder WithSql(string sql)
         {
-            this.sqlQuery = sql;
+            this._sqlQuery = sql;
             return this;
         }
 
         public JdbcRequestTestStepBuilder Named(string name)
         {
-            this.name = name;
+            this._name = name;
             return this;
         }
 
@@ -41,19 +41,19 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
                 throw new NullReferenceException("Properties can't be null");
             }
 
-            this.properties = newProperties;
+            this._properties = newProperties;
             return this;
         }
 
         public JdbcRequestTestStepBuilder AddProperty(string propertyName, object value)
         {
-            properties.Add(propertyName, value);
+            _properties.Add(propertyName, value);
             return this;
         }
 
         public JdbcRequestTestStepBuilder AddAssertion(IAssertionBuilder assertion)
         {
-            assertionBuilders.Add(assertion);
+            _assertionBuilders.Add(assertion);
             return this;
         }
 
@@ -61,12 +61,12 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
         {
             JdbcRequestTestStepStruct testStep = new JdbcRequestTestStepStruct();
             testStep.Type = TestStepTypes.JDBC_REQUEST;
-            testStep.Driver = driver;
-            testStep.ConnectionString = connectionString;
-            testStep.StoredProcedure = storedProcedure;
-            testStep.SqlQuery = sqlQuery;
-            testStep.Properties = properties;
-            testStep.Name = name;
+            testStep.Driver = _driver;
+            testStep.ConnectionString = _connectionString;
+            testStep.StoredProcedure = _storedProcedure;
+            testStep.SqlQuery = _sqlQuery;
+            testStep.Properties = _properties;
+            testStep.Name = _name;
             SetAssertions(testStep);
             return testStep;
         }
@@ -74,7 +74,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.JdbcRequest
         private void SetAssertions(JdbcRequestTestStepStruct testStep)
         {
             List<Assertion> assertions = new List<Assertion>();
-            foreach (IAssertionBuilder assertionBuilder in assertionBuilders)
+            foreach (IAssertionBuilder assertionBuilder in _assertionBuilders)
             {
                 assertions.Add(((AbstractAssertionBuilder)assertionBuilder).Build());
             }

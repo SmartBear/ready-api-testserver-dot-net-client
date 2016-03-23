@@ -9,16 +9,16 @@ namespace ReadyAPI.TestServer.Client.Auth
 
         public IAuthenticationBuilderWithDomain SetDomain(string domain)
         {
-            authentication.Domain = domain;
+            _authentication.Domain = domain;
             return this;
         }
 
         public override Authentication Build()
         {
-            Validator.ValidateNotEmpty(authentication.Username, "Missing username, it's a required parameter for NTLM Auth.");
-            Validator.ValidateNotEmpty(authentication.Password, "Missing password, it's a required parameter for NTLM Auth.");
-            authentication.Type = "NTLM";
-            return authentication;
+            Validator.ValidateNotEmpty(_authentication.Username, "Missing username, it's a required parameter for NTLM Auth.");
+            Validator.ValidateNotEmpty(_authentication.Password, "Missing password, it's a required parameter for NTLM Auth.");
+            _authentication.Type = "NTLM";
+            return _authentication;
         }
     }
 }

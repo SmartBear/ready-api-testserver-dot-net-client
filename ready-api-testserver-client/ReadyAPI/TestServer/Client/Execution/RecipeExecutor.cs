@@ -13,10 +13,10 @@ namespace ReadyAPI.TestServer.Client.Execution
      */
     public class RecipeExecutor
     {
-        readonly ReadyapiApi testServerApi;
-        string user;
-        string password;
-        readonly IList<IExecutionListener> executionListeners = new SynchronizedCollection<IExecutionListener>();
+        private readonly ReadyapiApi _testServerApi;
+        private string _user;
+        private string _password;
+        private readonly IList<IExecutionListener> _executionListeners = new SynchronizedCollection<IExecutionListener>();
 
         public RecipeExecutor(Scheme scheme, string host, int port) : this(scheme, host, port, ServerDefaults.VERSION_PREFIX)
         { }
@@ -30,25 +30,25 @@ namespace ReadyAPI.TestServer.Client.Execution
         RecipeExecutor(Scheme scheme, string host, int port, string basePath)
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-            testServerApi = new ReadyapiApi(string.Format("{0}://{1}:{2}{3}", scheme.Value, host, port, basePath));
+            _testServerApi = new ReadyapiApi(string.Format("{0}://{1}:{2}{3}", scheme.Value, host, port, basePath));
         }
 
         public ReadyapiApi TestServerApi
         {
             get
             {
-                return testServerApi;
+                return _testServerApi;
             }
         }
 
         public void AddExecutionListener(IExecutionListener listener)
         {
-            executionListeners.Add(listener);
+            _executionListeners.Add(listener);
         }
 
         public void RemoveExecutionListener(IExecutionListener listener)
         {
-            executionListeners.Remove(listener);
+            _executionListeners.Remove(listener);
         }
 
         public Execution SubmitRecipe(TestRecipe recipe)
@@ -56,7 +56,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             Execution execution = ExecuteTestCase(recipe.TestCase, true);
             if (execution != null)
             {
-                foreach (IExecutionListener executionListener in executionListeners)
+                foreach (IExecutionListener executionListener in _executionListeners)
                 {
                     executionListener.RequestSent(execution.CurrentReport);
                 }
@@ -77,8 +77,8 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         public Execution CancelExecution(Execution execution)
         {
-            testServerApi.CancelExecutionWithHttpInfo(execution.Id);
-            ProjectResultReport report = testServerApi.GetExecutionStatus(execution.Id);
+            _testServerApi.CancelExecutionWithHttpInfo(execution.Id);
+            ProjectResultReport report = _testServerApi.GetExecutionStatus(execution.Id);
             execution.AddResultReport(report);
             return execution;
         }
@@ -88,7 +88,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             get
             {
                 List<Execution> executions = new List<Execution>();
-                ProjectResultReports projectResultReport = testServerApi.GetExecutions();
+                ProjectResultReports projectResultReport = _testServerApi.GetExecutions();
                 foreach (ProjectResultReport resultReport in projectResultReport._ProjectResultReports)
                 {
                     executions.Add(new Execution(resultReport));
@@ -99,24 +99,24 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         public void SetCredentials(string user, string password)
         {
-            this.user = user;
-            this.password = password;
+            this._user = user;
+            this._password = password;
         }
 
         private Execution ExecuteTestCase(TestCase testCase, bool async)
         {
             try
             {
-                Configuration config = testServerApi.Configuration;
-                config.Username = this.user;
-                config.Password = this.password;
-                testServerApi.Configuration = config;
-                ProjectResultReport projectResultReport = testServerApi.PostRecipe(testCase, async);
+                Configuration config = _testServerApi.Configuration;
+                config.Username = this._user;
+                config.Password = this._password;
+                _testServerApi.Configuration = config;
+                ProjectResultReport projectResultReport = _testServerApi.PostRecipe(testCase, async);
                 return new Execution(projectResultReport);
             }
             catch (Exception e)
             {
-                foreach (IExecutionListener executionListener in executionListeners)
+                foreach (IExecutionListener executionListener in _executionListeners)
                 {
                     executionListener.ErrorOccurred(e);
                 }
@@ -129,7 +129,7 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         private void NotifyExecutionFinished(ProjectResultReport executionStatus)
         {
-            foreach (IExecutionListener executionListener in executionListeners)
+            foreach (IExecutionListener executionListener in _executionListeners)
             {
                 executionListener.ExecutionFinished(executionStatus);
             }

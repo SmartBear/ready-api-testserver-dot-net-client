@@ -5,50 +5,50 @@ namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 {
     public class FileDataSourceBuilder : IDataSourceBuilder
     {
-        private FileDataSource fileDataSource = new FileDataSource();
-        private List<string> properties = new List<string>();
+        private FileDataSource _fileDataSource = new FileDataSource();
+        private List<string> _properties = new List<string>();
 
         public FileDataSourceBuilder AddProperty(string propertyName)
         {
-            properties.Add(propertyName);
+            _properties.Add(propertyName);
             return this;
         }
 
         public FileDataSourceBuilder WithFilePath(string filePath)
         {
-            fileDataSource.FilePath = filePath;
+            _fileDataSource.FilePath = filePath;
             return this;
         }
 
         public FileDataSourceBuilder WithCharSet(string charSet)
         {
-            fileDataSource.Charset = charSet;
+            _fileDataSource.Charset = charSet;
             return this;
         }
 
         public FileDataSourceBuilder WithSeparator(string separator)
         {
-            fileDataSource.Separator = separator;
+            _fileDataSource.Separator = separator;
             return this;
         }
 
         public FileDataSourceBuilder Trim()
         {
-            fileDataSource.Trim = true;
+            _fileDataSource.Trim = true;
             return this;
         }
 
         public FileDataSourceBuilder QuotedValues()
         {
-            fileDataSource.QuotedValues = true;
+            _fileDataSource.QuotedValues = true;
             return this;
         }
 
         public IO.Swagger.Model.DataSource Build()
         {
             IO.Swagger.Model.DataSource dataSource = new IO.Swagger.Model.DataSource();
-            dataSource.Properties = properties;
-            dataSource.File = fileDataSource;
+            dataSource.Properties = _properties;
+            dataSource.File = _fileDataSource;
             return dataSource;
         }
     }

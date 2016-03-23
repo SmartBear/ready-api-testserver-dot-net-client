@@ -10,35 +10,35 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
         where 
         TRestRequestBuilderType : class, IRestRequestBuilder<TRestRequestBuilderType>
     {
-        protected RestTestRequestStep testStep = new RestTestRequestStep();
-        private List<Parameter> parameters = new List<Parameter>();
-        private List<IAssertionBuilder> assertionBuilders = new List<Assertions.IAssertionBuilder>();
-        private Dictionary<string, object> headers = new Dictionary<string, object>();
+        protected RestTestRequestStep _testStep = new RestTestRequestStep();
+        private List<Parameter> _parameters = new List<Parameter>();
+        private List<IAssertionBuilder> _assertionBuilders = new List<Assertions.IAssertionBuilder>();
+        private Dictionary<string, object> _headers = new Dictionary<string, object>();
 
         public enum ParameterType { MATRIX, HEADER, QUERY, PATH };
 
         public BaseRestRequest (string uri, TestSteps.HttpMethod method)
         {
-            testStep.URI = uri;
-            testStep.Method = method.ToString();
+            _testStep.URI = uri;
+            _testStep.Method = method.ToString();
         }
 
         TestStep ITestStepBuilder.Build()
         {
-            Validator.ValidateNotEmpty(testStep.URI, "No URI set, it's a mandatory parameter for REST Request");
-            Validator.ValidateNotEmpty(testStep.Method, "No HTTP method set, it's a mandatory parameter for REST Request");
-            testStep.Type = new TestStepTypes(TestStepTypes.REST_REQUEST).ToString();
-            testStep.Headers = headers;
-            SetAssertions(testStep);
-            testStep.Parameters = parameters;
+            Validator.ValidateNotEmpty(_testStep.URI, "No URI set, it's a mandatory parameter for REST Request");
+            Validator.ValidateNotEmpty(_testStep.Method, "No HTTP method set, it's a mandatory parameter for REST Request");
+            _testStep.Type = new TestStepTypes(TestStepTypes.REST_REQUEST).ToString();
+            _testStep.Headers = _headers;
+            SetAssertions(_testStep);
+            _testStep.Parameters = _parameters;
 
-            return testStep;
+            return _testStep;
         }
         
         private void SetAssertions(RestTestRequestStep testStep)
         {
             List<Assertion> assertions = new List<Assertion>();
-            foreach (IAssertionBuilder assertionBuilder in assertionBuilders)
+            foreach (IAssertionBuilder assertionBuilder in _assertionBuilders)
             {
                 assertions.Add(((AbstractAssertionBuilder)assertionBuilder).Build());
             }
@@ -51,13 +51,13 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
             parameter.Name = parameterName;
             parameter.Value = value;
             parameter.Type = (type == ParameterType.PATH ? "TEMPLATE" : type.ToString());
-            parameters.Add(parameter);
+            _parameters.Add(parameter);
             return this as TRequestBuilderType;
         }
 
         public TRestRequestBuilderType Named(string name)
         {
-            testStep.Name = name;
+            _testStep.Name = name;
             return this as TRestRequestBuilderType;
         }
 
@@ -83,18 +83,18 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         public TRestRequestBuilderType AddAssertion(IAssertionBuilder assertionBuilder)
         {
-            assertionBuilders.Add(assertionBuilder);
+            _assertionBuilders.Add(assertionBuilder);
             return this as TRestRequestBuilderType;
         }
 
         public TRestRequestBuilderType AddHeader(string name, List<string> values)
         {
             object headerValues;
-            headers.TryGetValue(name, out headerValues);
+            _headers.TryGetValue(name, out headerValues);
             if (headerValues == null)
             {
                 headerValues = new List<string>();
-                headers.Add(name, headerValues);
+                _headers.Add(name, headerValues);
             }
 
             (headerValues as List<string>).AddRange(values);
@@ -109,37 +109,37 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         public TRestRequestBuilderType SetTimeout(string timeout)
         {
-            testStep.Timeout = timeout;
+            _testStep.Timeout = timeout;
             return this as TRestRequestBuilderType; 
         }
 
         public TRestRequestBuilderType SetTimeout(int timeout)
         {
-            testStep.Timeout = timeout.ToString();
+            _testStep.Timeout = timeout.ToString();
             return this as TRestRequestBuilderType;
         }
 
         public TRestRequestBuilderType FollowRedirects()
         {
-            testStep.FollowRedirects = true;
+            _testStep.FollowRedirects = true;
             return this as TRestRequestBuilderType;
         }
 
         public TRestRequestBuilderType EntitizeParameters()
         {
-            testStep.EntitizeParameters = true;
+            _testStep.EntitizeParameters = true;
             return this as TRestRequestBuilderType;
         }
 
         public TRestRequestBuilderType PostQuerystring()
         {
-            testStep.PostQueryString = true;
+            _testStep.PostQueryString = true;
             return this as TRestRequestBuilderType;
         }
 
         public TRestRequestBuilderType SetAuthentication(IAuthenticationBuilder authenticationBuilder)
         {
-            testStep.Authentication = (((IAbstractAuthenticationBuilder)authenticationBuilder).Build());
+            _testStep.Authentication = (((IAbstractAuthenticationBuilder)authenticationBuilder).Build());
             return this as TRestRequestBuilderType;
 
         }
@@ -196,7 +196,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.RestRequest
 
         protected TRestRequestBuilderType WithURI(string uri)
         {
-            testStep.URI = uri;
+            _testStep.URI = uri;
             return this as TRestRequestBuilderType;
         }
     }

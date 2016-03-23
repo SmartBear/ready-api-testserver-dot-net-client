@@ -9,10 +9,10 @@ namespace ReadyAPI.TestServer.Client.Auth
 
         public override Authentication Build()
         {
-            Validator.ValidateNotEmpty(authentication.Username, "Missing username, it's a required parameter for SPNEGO/Kerberos Auth.");
-            Validator.ValidateNotEmpty(authentication.Password, "Missing password, it's a required parameter for SPNEGO/Kerberos Auth.");
-            authentication.Type = "SPNEGO/Kerberos";
-            return authentication as Authentication;
+            Validator.ValidateNotEmpty(_authentication.Username, "Missing username, it's a required parameter for SPNEGO/Kerberos Auth.");
+            Validator.ValidateNotEmpty(_authentication.Password, "Missing password, it's a required parameter for SPNEGO/Kerberos Auth.");
+            _authentication.Type = "SPNEGO/Kerberos";
+            return _authentication as Authentication;
         }
     }
 }

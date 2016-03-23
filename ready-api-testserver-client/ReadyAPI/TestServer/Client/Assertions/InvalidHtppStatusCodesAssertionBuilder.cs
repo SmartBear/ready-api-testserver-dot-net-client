@@ -8,10 +8,10 @@ namespace ReadyAPI.TestServer.Client.Assertions
 
         public override Assertion Build()
         {
-            Validator.ValidateNotEmpty(statusCodes, "Missing status codes. Status codes are mandatory for InvalidHttpStatusCodesAssertion");
+            Validator.ValidateNotEmpty(_statusCodes, "Missing status codes. Status codes are mandatory for InvalidHttpStatusCodesAssertion");
             InvalidHttpStatusCodesAssertion invalidHttpStatusCodesAssertion = new InvalidHttpStatusCodesAssertion();
             invalidHttpStatusCodesAssertion.Type = "Invalid HTTP Status Codes";
-            invalidHttpStatusCodesAssertion.InvalidStatusCodes = statusCodes;
+            invalidHttpStatusCodesAssertion.InvalidStatusCodes = _statusCodes;
             return invalidHttpStatusCodesAssertion;
         }
     }

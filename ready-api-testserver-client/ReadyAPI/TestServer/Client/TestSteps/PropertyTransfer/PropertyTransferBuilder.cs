@@ -4,9 +4,9 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 {
     public class PropertyTransferBuilder
     {
-        private IO.Swagger.Model.PropertyTransfer transfer = new IO.Swagger.Model.PropertyTransfer();
-        private PropertyTransferSourceBuilder propertyTransferSourceBuilder;
-        private PropertyTransferTargetBuilder propertyTransferTargetBuilder;
+        private IO.Swagger.Model.PropertyTransfer _transfer = new IO.Swagger.Model.PropertyTransfer();
+        private PropertyTransferSourceBuilder _propertyTransferSourceBuilder;
+        private PropertyTransferTargetBuilder _propertyTransferTargetBuilder;
 
         public static PropertyTransferBuilder From(PropertyTransferSourceBuilder propertyTransferSourceBuilder)
         {
@@ -20,7 +20,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 
         public PropertyTransferBuilder WithSource(PropertyTransferSourceBuilder propertyTransferSourceBuilder)
         {
-            this.propertyTransferSourceBuilder = propertyTransferSourceBuilder;
+            this._propertyTransferSourceBuilder = propertyTransferSourceBuilder;
             return this;
         }
 
@@ -31,23 +31,23 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 
         public PropertyTransferBuilder To(PropertyTransferTargetBuilder propertyTransferTargetBuilder)
         {
-            this.propertyTransferTargetBuilder = propertyTransferTargetBuilder;
+            this._propertyTransferTargetBuilder = propertyTransferTargetBuilder;
             return this;
         }
         
         public IO.Swagger.Model.PropertyTransfer Build()
         {
-            if (propertyTransferSourceBuilder == null)
+            if (_propertyTransferSourceBuilder == null)
             {
                 throw new InvalidOperationException("No source defined for property transfer");
             }
-            if (propertyTransferTargetBuilder == null)
+            if (_propertyTransferTargetBuilder == null)
             {
                 throw new InvalidOperationException("No target defined for property transfer");
             }
-            transfer.Source = propertyTransferSourceBuilder.Build();
-            transfer.Target = propertyTransferTargetBuilder.Build();
-            return transfer;
+            _transfer.Source = _propertyTransferSourceBuilder.Build();
+            _transfer.Target = _propertyTransferTargetBuilder.Build();
+            return _transfer;
         }
     }
 }

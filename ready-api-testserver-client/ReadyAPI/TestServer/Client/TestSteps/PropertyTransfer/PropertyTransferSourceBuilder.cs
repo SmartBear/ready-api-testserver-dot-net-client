@@ -5,7 +5,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
     public class PropertyTransferSourceBuilder
     {
 
-        private PropertyTransferSource source = new PropertyTransferSource();
+        private PropertyTransferSource _source = new PropertyTransferSource();
 
         public static PropertyTransferSourceBuilder aSource()
         {
@@ -14,31 +14,31 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 
         public PropertyTransferSourceBuilder WithSourceStep(string sourceStepName)
         {
-            source.SourceName = sourceStepName;
+            _source.SourceName = sourceStepName;
             return this;
         }
 
         public PropertyTransferSourceBuilder WithProperty(string property)
         {
-            source.Property = property;
+            _source.Property = property;
             return this;
         }
 
         public PropertyTransferSourceBuilder WithPathLanguage(PathLanguage pathLanguage)
         {
-            source.PathLanguage = pathLanguage.ToString();//TODO: possible mistake is here, need to double check
+            _source.PathLanguage = pathLanguage.ToString();//TODO: possible mistake is here, need to double check
             return this;
         }
 
         public PropertyTransferSourceBuilder WithPath(string path)
         {
-            source.Path = path;
+            _source.Path = path;
             return this;
         }
 
         public PropertyTransferSource Build()
         {
-            return source;
+            return _source;
         }
     }
 }

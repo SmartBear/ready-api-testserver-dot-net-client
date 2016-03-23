@@ -4,7 +4,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 {
     public class PropertyTransferTargetBuilder
     {
-        private PropertyTransferTarget target = new PropertyTransferTarget();
+        private PropertyTransferTarget _target = new PropertyTransferTarget();
 
         public static PropertyTransferTargetBuilder aTarget()
         {
@@ -13,31 +13,31 @@ namespace ReadyAPI.TestServer.Client.TestSteps.PropertyTransfer
 
         public PropertyTransferTargetBuilder WithTargetStep(string targetStepName)
         {
-            target.TargetName = targetStepName;
+            _target.TargetName = targetStepName;
             return this;
         }
 
         public PropertyTransferTargetBuilder WithProperty(string property)
         {
-            target.Property = property;
+            _target.Property = property;
             return this;
         }
 
         public PropertyTransferTargetBuilder WithPathLanguage(PathLanguage pathLanguage)
         {
-            target.PathLanguage = pathLanguage.ToString();
+            _target.PathLanguage = pathLanguage.ToString();
             return this;
         }
 
         public PropertyTransferTargetBuilder WithPath(string path)
         {
-            target.Path = path;
+            _target.Path = path;
             return this;
         }
 
         public PropertyTransferTarget Build()
         {
-            return target;
+            return _target;
         }
     }
 }
