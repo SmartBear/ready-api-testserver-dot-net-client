@@ -40,10 +40,12 @@ namespace ReadyAPI.TestServer.Client.TestSteps
             return new PropertyTransferTestStepBuilder();
         }
 
+        /*
         public static DataSourceTestStepBuilder<T> DataSource<T>() where T : IDataSourceBuilder
         {
             return new DataSourceTestStepBuilder<T>();
         }
+        */
 
         public static GridDataSourceTestStepBuilder GridDataSource()
         {
