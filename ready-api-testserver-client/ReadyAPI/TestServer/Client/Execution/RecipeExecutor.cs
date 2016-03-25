@@ -1,8 +1,10 @@
 ﻿using IO.Swagger.Api;
 using IO.Swagger.Client;
 using IO.Swagger.Model;
+using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading;
 
@@ -105,6 +107,8 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         private Execution ExecuteTestCase(TestCase testCase, bool async)
         {
+            VerifyDataSourceFilesExist(testCase);
+
             try
             {
                 Configuration config = _testServerApi.Configuration;
@@ -112,6 +116,7 @@ namespace ReadyAPI.TestServer.Client.Execution
                 config.Password = this._password;
                 _testServerApi.Configuration = config;
                 ProjectResultReport projectResultReport = _testServerApi.PostRecipe(testCase, async);
+                projectResultReport = SendFilesForDataSources(testCase, projectResultReport);
                 return new Execution(projectResultReport);
             }
             catch (Exception e)
@@ -125,6 +130,97 @@ namespace ReadyAPI.TestServer.Client.Execution
                 Console.Error.WriteLine(e.StackTrace.ToString());
             }
             return null;
+        }
+
+        private void VerifyDataSourceFilesExist(TestCase testCase)
+        {
+            foreach (TestStep testStep in testCase.TestSteps)
+            {
+                if (testStep is DataSourceTestStep) 
+                {
+                    DataSource dataSource = ((DataSourceTestStep)testStep).DataSource;
+                    if (dataSource.Excel != null)
+                    {
+                        verifyFileExists(dataSource.Excel.File);
+                    }
+                    if (dataSource.File != null)
+                    {
+                        verifyFileExists(dataSource.File.FilePath);
+                    }
+                }
+            }
+        }
+
+        private void verifyFileExists(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new InvalidOperationException("Data source file not found: " + filePath);
+            }
+        }
+
+        private ProjectResultReport SendFilesForDataSources(TestCase body, ProjectResultReport projectResultReport)
+        {
+            Dictionary<string, string> formParams = BuildFormParameters(body);
+            if (formParams.Count == 0)
+            {
+                return projectResultReport;
+            }
+            Console.WriteLine(1);
+            FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
+            List<BodyPart> bodyParts = new List<BodyPart>();
+            Console.WriteLine(2);
+            foreach (KeyValuePair<string, string> item in formParams)
+            {
+                //FormDataBodyPart bodyPart = new FormDataBodyPart();
+                BodyPart bodyPart = new BodyPart();
+                Console.WriteLine(2.1);
+                //bodyPart.Name = item.Key;
+                bodyPart.MediaType = new MediaType();
+                bodyPart.MediaType.Type = "application";
+                Console.WriteLine(2.2);
+                bodyPart.MediaType.Subtype = "octet-stream";
+                Console.WriteLine(2.3);
+                bodyPart.ContentDisposition = new ContentDisposition();
+                bodyPart.ContentDisposition.FileName = item.Value;
+                Console.WriteLine(2.4);
+                bodyParts.Add(bodyPart);
+                Console.WriteLine(2.5);
+            }
+            Console.WriteLine(3);
+            formDataMultiPart.BodyParts = bodyParts;
+            return _testServerApi.AddFile(formDataMultiPart, projectResultReport.ExecutionID);
+        }
+
+        private Dictionary<string, string> BuildFormParameters(TestCase testCase)
+        {
+            Dictionary<string, string> formParams = new Dictionary<string, string>();
+            foreach (TestStep testStep in testCase.TestSteps)
+            {
+                if (testStep is DataSourceTestStep)
+                {
+                    DataSource dataSource = ((DataSourceTestStep)testStep).DataSource;
+                    AddDataSourceFile(formParams, dataSource.Excel);
+                    AddDataSourceFile(formParams, dataSource.File);
+                }
+            }
+            return formParams;
+        }
+
+        private void AddDataSourceFile(Dictionary<string, string> formParams, FileDataSource fileDataSource)
+        {
+            if (fileDataSource != null)
+            {
+                formParams.Add(Path.GetFileName(fileDataSource.FilePath), fileDataSource.FilePath);
+            }
+        }
+
+        private void AddDataSourceFile(Dictionary<string, string> formParams, ExcelDataSource excelDataSource)
+        {
+            if (excelDataSource != null)
+            {
+                formParams.Add(Path.GetFileName(excelDataSource.File), excelDataSource.File);
+            }
         }
 
         private void NotifyExecutionFinished(ProjectResultReport executionStatus)
