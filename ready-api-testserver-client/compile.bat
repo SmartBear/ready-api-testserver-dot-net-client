@@ -1,3 +1,5 @@
+rmdir /S /Q .\bin\
+mkdir .\bin
 SET CSCPATH=%SYSTEMROOT%\Microsoft.NET\Framework\v4.0.30319
 SET LIBPATH=../io-swagger-client/bin
 echo %LIBPATH%
