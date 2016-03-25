@@ -16,7 +16,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 
         public ExcelDataSourceBuilder WithFilePath(string filePath)
         {
-            _excelDataSource.FilePath = filePath;
+            _excelDataSource.File = filePath;
             return this;
         }
 
