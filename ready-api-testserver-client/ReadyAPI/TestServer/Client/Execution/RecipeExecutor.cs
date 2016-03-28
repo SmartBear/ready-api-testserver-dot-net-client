@@ -186,7 +186,6 @@ namespace ReadyAPI.TestServer.Client.Execution
             var headerParams = new Dictionary<string, string>(configuration.DefaultHeader);
             var formParams = new Dictionary<string, string>();
             var fileParams = new Dictionary<string, FileParameter>();
-            Object postBody = null;
 
             string boundary = Guid.NewGuid().ToString().Replace('-', 'A');
             string[] httpContentTypes = new string[] {
@@ -215,17 +214,19 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
 
             Dictionary<string, string> filesToSend = BuildFormParameters(body);
-            string postBodyStr = "";
-            byte[] resultArray = new byte[] { };
+            IEnumerable<byte> postBodyBytes = new byte[] { };
+            string contentDispositionHeaderTemplate = "\n--{0}\nContent-Type: application/octet-stream\nContent-Disposition: form-data; filename=\"{1}\"; name=\"{2}\"\n\n";
             foreach (KeyValuePair<string, string> item in filesToSend)
             {
                 string fileName = item.Key;
                 byte [] fileContent = File.ReadAllBytes(item.Value);
-                postBodyStr = "\n--" + boundary + "\nContent-Type: application/octet-stream\nContent-Disposition: form-data; filename=\"" + fileName + "\"; name=\"" + fileName + "\"\n\n";
-                resultArray = resultArray.Concat(EncodeString(postBodyStr)).ToArray();
-                resultArray = resultArray.Concat(fileContent).ToArray();
-                resultArray = resultArray.Concat(EncodeString("\n--" + boundary + "--")).ToArray();
+                string contentDispositionHeader = String.Format(contentDispositionHeaderTemplate, boundary, fileName, fileName);
+                postBodyBytes = postBodyBytes.Concat(EncodeString(contentDispositionHeader)).Concat(fileContent).Concat(EncodeString("\n--" + boundary + "--"));
             }
+
+            object postBody = postBodyBytes.ToArray();
+
+            Console.WriteLine(postBodyBytes.ToArray().Length);
 
             if (!String.IsNullOrEmpty(configuration.Username) || !String.IsNullOrEmpty(configuration.Password))
             {
@@ -233,7 +234,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
 
             IRestResponse response = (IRestResponse)configuration.ApiClient.CallApi(path_,
-                Method.POST, queryParams, resultArray, headerParams, formParams, fileParams,
+                Method.POST, queryParams, postBody, headerParams, formParams, fileParams,
                 pathParams, httpContentType);
             _async = null;
 
