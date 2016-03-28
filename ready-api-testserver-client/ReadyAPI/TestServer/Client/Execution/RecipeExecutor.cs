@@ -146,17 +146,17 @@ namespace ReadyAPI.TestServer.Client.Execution
                     DataSource dataSource = ((DataSourceTestStep)testStep).DataSource;
                     if (dataSource.Excel != null)
                     {
-                        verifyFileExists(dataSource.Excel.File);
+                        VerifyFileExists(dataSource.Excel.File);
                     }
                     if (dataSource.File != null)
                     {
-                        verifyFileExists(dataSource.File.FilePath);
+                        VerifyFileExists(dataSource.File.FilePath);
                     }
                 }
             }
         }
 
-        private void verifyFileExists(string filePath)
+        private void VerifyFileExists(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -185,7 +185,7 @@ namespace ReadyAPI.TestServer.Client.Execution
                 throw new ApiException(400, "Missing required parameter 'executionId' when calling ReadyapiApi->AddFile");
             }
             
-            var path_ = "/readyapi/executions/{executionId}/files";
+            var pathToSendFiles = "/readyapi/executions/{executionId}/files";
 
             var pathParams = new Dictionary<string, string>();
             var queryParams = new Dictionary<string, string>();
@@ -236,7 +236,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             }
 
             object postBody = postBodyBytes.ToArray();
-            IRestResponse response = (IRestResponse)configuration.ApiClient.CallApi(path_,
+            IRestResponse response = (IRestResponse)configuration.ApiClient.CallApi(pathToSendFiles,
                 Method.POST, queryParams, postBody, headerParams, formParams, fileParams,
                 pathParams, httpContentType);
             _async = null;
