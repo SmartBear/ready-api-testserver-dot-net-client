@@ -221,18 +221,16 @@ namespace ReadyAPI.TestServer.Client.Execution
                 string fileName = item.Key;
                 byte [] fileContent = File.ReadAllBytes(item.Value);
                 string contentDispositionHeader = String.Format(contentDispositionHeaderTemplate, boundary, fileName, fileName);
-                postBodyBytes = postBodyBytes.Concat(EncodeString(contentDispositionHeader)).Concat(fileContent).Concat(EncodeString("\n--" + boundary + "--"));
+                postBodyBytes = postBodyBytes.Concat(EncodeString(contentDispositionHeader)).Concat(fileContent);
             }
-
-            object postBody = postBodyBytes.ToArray();
-
-            Console.WriteLine(postBodyBytes.ToArray().Length);
+            postBodyBytes = postBodyBytes.Concat(EncodeString("\n--" + boundary + "--"));
 
             if (!String.IsNullOrEmpty(configuration.Username) || !String.IsNullOrEmpty(configuration.Password))
             {
                 headerParams["Authorization"] = "Basic " + Base64Encode(configuration.Username + ":" + configuration.Password);
             }
 
+            object postBody = postBodyBytes.ToArray();
             IRestResponse response = (IRestResponse)configuration.ApiClient.CallApi(path_,
                 Method.POST, queryParams, postBody, headerParams, formParams, fileParams,
                 pathParams, httpContentType);
