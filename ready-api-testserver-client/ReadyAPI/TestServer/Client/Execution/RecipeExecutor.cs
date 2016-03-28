@@ -150,7 +150,7 @@ namespace ReadyAPI.TestServer.Client.Execution
                     }
                     if (dataSource.File != null)
                     {
-                        VerifyFileExists(dataSource.File.FilePath);
+                        VerifyFileExists(dataSource.File.File);
                     }
                 }
             }
@@ -289,7 +289,7 @@ namespace ReadyAPI.TestServer.Client.Execution
         {
             if (fileDataSource != null)
             {
-                formParams.Add(Path.GetFileName(fileDataSource.FilePath), fileDataSource.FilePath);
+                formParams.Add(Path.GetFileName(fileDataSource.File), fileDataSource.File);
             }
         }
 

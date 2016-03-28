@@ -32,8 +32,8 @@ namespace IO.Swagger.Model
         /// The name of the file used for the data source.
         /// </summary>
         /// <value>The name of the file used for the data source.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=false)]
-        public string FilePath { get; set; }
+        [DataMember(Name="file", EmitDefaultValue=false)]
+        public string File { get; set; }
   
         
         /// <summary>
@@ -77,7 +77,7 @@ namespace IO.Swagger.Model
         {
             var sb = new StringBuilder();
             sb.Append("class FileDataSource {\n");
-            sb.Append("  FilePath: ").Append(FilePath).Append("\n");
+            sb.Append("  File: ").Append(File).Append("\n");
             sb.Append("  Charset: ").Append(Charset).Append("\n");
             sb.Append("  Separator: ").Append(Separator).Append("\n");
             sb.Append("  Trim: ").Append(Trim).Append("\n");
@@ -120,9 +120,9 @@ namespace IO.Swagger.Model
 
             return 
                 (
-                    this.FilePath == other.FilePath ||
-                    this.FilePath != null &&
-                    this.FilePath.Equals(other.FilePath)
+                    this.File == other.File ||
+                    this.File != null &&
+                    this.File.Equals(other.File)
                 ) && 
                 (
                     this.Charset == other.Charset ||
@@ -158,8 +158,8 @@ namespace IO.Swagger.Model
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
                 
-                if (this.FilePath != null)
-                    hash = hash * 59 + this.FilePath.GetHashCode();
+                if (this.File != null)
+                    hash = hash * 59 + this.File.GetHashCode();
                 
                 if (this.Charset != null)
                     hash = hash * 59 + this.Charset.GetHashCode();

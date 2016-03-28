@@ -16,7 +16,7 @@ namespace ReadyAPI.TestServer.Client.TestSteps.DataSource
 
         public FileDataSourceBuilder WithFilePath(string filePath)
         {
-            _fileDataSource.FilePath = filePath;
+            _fileDataSource.File = filePath;
             return this;
         }
 
