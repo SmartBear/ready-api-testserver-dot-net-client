@@ -166,6 +166,12 @@ namespace ReadyAPI.TestServer.Client.Execution
 
         private ProjectResultReport SendFilesForDataSources(TestCase body, ProjectResultReport projectResultReport)
         {
+            Dictionary<string, string> filesToSend = BuildFormParameters(body);
+            if (filesToSend.Count == 0)
+            {
+                return projectResultReport;
+            }
+
             Configuration configuration = _testServerApi.Configuration;
             string executionId = projectResultReport.ExecutionID;
 
@@ -212,8 +218,7 @@ namespace ReadyAPI.TestServer.Client.Execution
             {
                 queryParams.Add("async", configuration.ApiClient.ParameterToString(_async));
             }
-
-            Dictionary<string, string> filesToSend = BuildFormParameters(body);
+                        
             IEnumerable<byte> postBodyBytes = new byte[] { };
             string contentDispositionHeaderTemplate = "\n--{0}\nContent-Type: application/octet-stream\nContent-Disposition: form-data; filename=\"{1}\"; name=\"{2}\"\n\n";
             foreach (KeyValuePair<string, string> item in filesToSend)
