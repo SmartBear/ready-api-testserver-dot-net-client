@@ -33,6 +33,8 @@ namespace IO.Swagger.Model
         [DataMember(Name="type", EmitDefaultValue=false)]
         public string Type { get; set; }
   
+        [DataMember(Name="timeout", EmitDefaultValue=false)]
+        public string Timeout { get; set; }
         
   
         /// <summary>
@@ -44,6 +46,7 @@ namespace IO.Swagger.Model
             var sb = new StringBuilder();
             sb.Append("class JdbcTimeoutAssertionStruct {\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Timeout: ").Append(Timeout).Append("\n");
             
             sb.Append("}\n");
             return sb.ToString();
@@ -82,9 +85,11 @@ namespace IO.Swagger.Model
 
             return 
                 (
-                    this.Type == other.Type ||
-                    this.Type != null &&
-                    this.Type.Equals(other.Type)
+                    (this.Type == other.Type && this.Timeout == other.Timeout) ||
+                    (this.Type != null &&
+                     this.Type.Equals(other.Type) &&
+                     this.Timeout != null && 
+                     this.Timeout.Equals(other.Timeout))
                 );
         }
 

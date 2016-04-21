@@ -23,10 +23,8 @@ namespace ReadyAPI.TestServer.Client.Assertions
 
         public override Assertion Build()
         {
-            int iTimeout;
-            Int32.TryParse((string)_timeout, out iTimeout);
             JdbcTimeoutAssertionStruct timeoutAssertion = new JdbcTimeoutAssertionStruct();
-            //timeoutAssertion.Timeout = iTimeout;
+            timeoutAssertion.Timeout = (string)_timeout;
             timeoutAssertion.Type = "JDBC Timeout";
             return timeoutAssertion;
         }
