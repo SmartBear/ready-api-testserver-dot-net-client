@@ -3,7 +3,7 @@
 
 This repository contains source file for the .NET Client library for [Ready! API TestServer](http://readyapi.smartbear.com/testserver/start) <html>&ndash;</html> a standalone server that exposes APIs for running API tests. 
 
-TestServer receives and runs *test recipes* <html>&ndash;</html> special JSON requests that describe API test actions to be executed. You can use this library to create and run test recipes from within your Java code, without installing Ready! API or any other API testing tool on your computer.
+TestServer receives and runs *test recipes* <html>&ndash;</html> special JSON requests that describe API test actions to be executed. You can use this library to create and run test recipes from within your .Net code, without installing Ready! API or any other API testing tool on your computer.
 
 ## Requirements
 
